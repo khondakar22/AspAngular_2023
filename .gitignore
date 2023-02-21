@@ -1,2 +1,4 @@
 client/rk-client/.vscode/
 server/Rk.Webapi/.vs/
+server/Rk.Webapi/Rk.Webapi/obj/
+server/Rk.Webapi/Rk.Webapi/bin/
