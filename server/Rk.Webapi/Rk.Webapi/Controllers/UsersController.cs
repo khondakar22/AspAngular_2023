@@ -7,11 +7,11 @@ namespace Rk.Webapi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UserController : ControllerBase
+    public class UsersController : ControllerBase
     {
         private readonly DataContext _context;
 
-        public UserController(DataContext context)
+        public UsersController(DataContext context)
         {
             _context = context;
         }
