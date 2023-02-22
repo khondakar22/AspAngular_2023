@@ -7,3 +7,5 @@ server/Rk.Webapi/Rk.Webapi/bin/
 server/Rk.Webapi/Rk.Webapi/appsettings.Development.json/
 server/Rk.Webapi/Rk.Webapi/appsettings.json/
 server/Rk.Webapi/Rk.Webapi/datingapp.db/
+client/rk-client/ssl/localhost.crt
+client/rk-client/ssl/localhost.key
