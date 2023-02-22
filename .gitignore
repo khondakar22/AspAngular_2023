@@ -1,9 +1,9 @@
 client/rk-client/.vscode/
 server/Rk.Webapi/.vs/
-server/Rk.Webapi/Rk.Webapi/obj
-server/Rk.Webapi/Rk.Webapi/obj/Debug
+server/Rk.Webapi/Rk.Webapi/obj/
+server/Rk.Webapi/Rk.Webapi/obj/Debug/
 server/Rk.Webapi/Rk.Webapi/obj/Debug/net6.0/
 server/Rk.Webapi/Rk.Webapi/bin/
-server/Rk.Webapi/Rk.Webapi/appsettings.Development.json
-server/Rk.Webapi/Rk.Webapi/appsettings.json
-server/Rk.Webapi/Rk.Webapi/datingapp.db
+server/Rk.Webapi/Rk.Webapi/appsettings.Development.json/
+server/Rk.Webapi/Rk.Webapi/appsettings.json/
+server/Rk.Webapi/Rk.Webapi/datingapp.db/
