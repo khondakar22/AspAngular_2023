@@ -1221,19 +1221,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\r.islam\\.nuget\\packages\\": {}
+    "C:\\Users\\khond\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Arbeit.ümgebüng.2022\\Learning\\asp_angular\\server\\Rk.Webapi\\Rk.Webapi\\Rk.Webapi.csproj",
+      "projectUniqueName": "D:\\Learning_2023\\asp_angular\\AspAngular_2023\\server\\Rk.Webapi\\Rk.Webapi\\Rk.Webapi.csproj",
       "projectName": "Rk.Webapi",
-      "projectPath": "C:\\Arbeit.ümgebüng.2022\\Learning\\asp_angular\\server\\Rk.Webapi\\Rk.Webapi\\Rk.Webapi.csproj",
-      "packagesPath": "C:\\Users\\r.islam\\.nuget\\packages\\",
-      "outputPath": "C:\\Arbeit.ümgebüng.2022\\Learning\\asp_angular\\server\\Rk.Webapi\\Rk.Webapi\\obj\\",
+      "projectPath": "D:\\Learning_2023\\asp_angular\\AspAngular_2023\\server\\Rk.Webapi\\Rk.Webapi\\Rk.Webapi.csproj",
+      "packagesPath": "C:\\Users\\khond\\.nuget\\packages\\",
+      "outputPath": "D:\\Learning_2023\\asp_angular\\AspAngular_2023\\server\\Rk.Webapi\\Rk.Webapi\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\r.islam\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\khond\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1289,7 +1289,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
       }
     }
   }
