@@ -1,4 +1,5 @@
-﻿namespace Rk.Webapi.Entities
+﻿
+namespace Rk.Webapi.Entities
 {
     /**
      * Querying
