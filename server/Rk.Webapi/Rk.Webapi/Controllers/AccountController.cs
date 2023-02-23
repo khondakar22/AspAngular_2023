@@ -32,6 +32,20 @@ namespace Rk.Webapi.Controllers
             await _context.SaveChangesAsync();
             return Ok(user);
         }
+        [HttpPost("login")]
+        public async Task<ActionResult<AppUser>> Login(LoginDto loginDto)
+        {
+            var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName.ToLower() == loginDto.Username.ToLower());
+
+            if (user == null) return Unauthorized("Invalid Username");
+            using var hmac = new HMACSHA512(user.PasswordSaltBytes);
+            var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
+            for (int i = 0; i < computedHash.Length; i++)
+            {
+                if (computedHash[i] != user.PasswordHash[i]) return Unauthorized("Invalid password");
+            }
+            return Ok(user);
+        }
 
         private async Task<bool> UserExists(string username)
         {
