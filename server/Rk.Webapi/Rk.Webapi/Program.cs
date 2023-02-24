@@ -1,11 +1,16 @@
 using Microsoft.EntityFrameworkCore;
 using Rk.Webapi.Data;
+using Rk.Webapi.Interfaces;
+using Rk.Webapi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+// Add Services
+builder.Services.AddScoped<ITokenService, TokenService>();
 
 // Add DbContext
 builder.Services.AddDbContext<DataContext>(opt =>
