@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavComponent } from './nav/nav.component';
+import { BsDropdownConfig, BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 @NgModule({
   declarations: [
@@ -18,9 +19,10 @@ import { NavComponent } from './nav/nav.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    BrowserAnimationsModule,
+    BsDropdownModule.forRoot(),
+    BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [{ provide: BsDropdownConfig, useValue: { autoClose: true } }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
