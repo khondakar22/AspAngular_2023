@@ -66,7 +66,7 @@ export class LoginComponent implements OnInit {
         if(response && response.username === this.loginForm.value.username) {
           console.log(response);
           this.currentUser$ = this.accountService.currentUser$;
-          this.router.navigate(['home']);
+          this.router.navigateByUrl('/');
         }
       },
       error: (err) => {console.log(err)},
@@ -78,6 +78,8 @@ export class LoginComponent implements OnInit {
     this.accountService.onRegister(this.registrationForm.value).subscribe({
       next: (response: any) => {
         console.log(response);
+        this.currentUser$ = this.accountService.currentUser$;
+        this.router.navigateByUrl('/');
       },
       error: (err) => {console.log(err)},
       complete: () => {console.log('complete')}

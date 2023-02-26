@@ -19,6 +19,6 @@ export class NavComponent implements OnInit, OnDestroy {
 
   onLogout() {
     this.accountService.logout();
-    this.router.navigate(['login']);
+    this.router.navigateByUrl('/login');
   }
 }
