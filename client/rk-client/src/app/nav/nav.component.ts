@@ -1,24 +1,41 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {  Router } from '@angular/router';
+import { AccountService } from '../_services/account.service';
+import { Observable, Subscription, of } from 'rxjs';
+import { User } from '../_models/user';
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.css'],
 })
-export class NavComponent implements OnInit {
+export class NavComponent implements OnInit, OnDestroy {
   model: any = {};
-  loggedId  = false;
-  constructor(public router: Router) {}
+  // loggedId  = false;
+  currentUser$: Observable<User | null> = of(null);
+  currentUser!: Subscription;
+  constructor(public router: Router, private accountService: AccountService) {}
+  ngOnDestroy(): void {
+    // this.currentUser.unsubscribe();
+  }
   ngOnInit(): void {
-    // throw new Error('Method not implemented.');
-    this.loggedId = localStorage.getItem('isLoggedIn') === 'true';
-    console.log(this.loggedId);
+    // this.getCurrentUser();
+    this.currentUser$ = this.accountService.currentUser$;
   }
 
+  // getCurrentUser() {
+  //  this.currentUser = this.accountService.currentUser$.subscribe({
+  //     next: (user) =>{ this.loggedId = !!user; },
+  //     error: (err) => { console.log(err); },
+  //     complete: () => { console.log(this.loggedId); }
+  //   }
+  //   )
+  //  }
+
   onLogout(){
-    localStorage.removeItem('isLoggedIn');
-    this.ngOnInit();
-    this.router.navigate(['/login-components']);
+    // localStorage.removeItem('isLoggedIn');
+    this.accountService.logout();
+    // this.loggedId = false;
+    this.router.navigate(['home']);
   }
 
 }

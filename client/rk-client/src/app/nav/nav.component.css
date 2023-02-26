@@ -58,5 +58,7 @@
   }
 
   ::ng-deep .custom-mat-menu {
-    background: gray 
+    background: gray;
+    margin-top: 0.9rem !important;
+    margin-left: 0.6rem !important;
   }

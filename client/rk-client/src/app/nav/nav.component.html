@@ -3,7 +3,7 @@
     <div class="menu-container">
       <div class="right-nav-item">
         <a href="#">My Learning App</a>
-        <ul *ngIf="loggedId" class="right-nav-item_ul">
+        <ul *ngIf="currentUser$ | async" class="right-nav-item_ul">
           <li>
             <a href="#">Matches</a>
           </li>
@@ -17,12 +17,12 @@
       </div>
 
       <div class="left-nav-item">
-        <ng-container *ngIf="!loggedId">
-          <a mat-button routerLink="/login-components">
+        <ng-container *ngIf="!(currentUser$ | async)">
+          <a mat-button routerLink="/login">
             <mat-icon class="material-symbols-outlined">login</mat-icon>
           </a>
         </ng-container>
-        <ng-container *ngIf="loggedId">
+        <ng-container *ngIf="currentUser$ | async">
           <a mat-button [matMenuTriggerFor]="belowMenu">
             <mat-icon class="material-symbols-outlined">people</mat-icon>
           </a>
@@ -39,3 +39,4 @@
     </div>
   </div>
 </mat-toolbar>
+
