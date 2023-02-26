@@ -1,6 +1,6 @@
 
-<app-home *ngIf="!isLoggedIn"></app-home>
-<div *ngIf="!isLoggedIn" class="container">
+<app-home *ngIf="!(currentUser$ | async)"></app-home>
+<div *ngIf="!(currentUser$ | async)" class="container">
   <mat-card class="example-card">
     
       <mat-card-content  >

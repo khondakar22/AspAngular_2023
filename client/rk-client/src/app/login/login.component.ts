@@ -3,7 +3,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { AccountService } from '../_services/account.service';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription, of } from 'rxjs';
+import { User } from '../_models/user';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,8 @@ export class LoginComponent implements OnInit {
   registrationForm: FormGroup;
   loginForm: FormGroup;
   isRegistrationForm = false;
-  isLoggedIn = false;
+  // isLoggedIn = false;
+  currentUser$: Observable<User | null> = of(null);
   currentUser!: Subscription;
   constructor(private accountService: AccountService, public router: Router){
     this.loginForm = new FormGroup({
@@ -31,17 +33,18 @@ export class LoginComponent implements OnInit {
     });
   }
   ngOnInit(): void {
-    this.getCurrentUser();
+    // this.getCurrentUser();
+    this.currentUser$ = this.accountService.currentUser$;
     // this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
   }
-  getCurrentUser() {
-    this.currentUser = this.accountService.currentUser$.subscribe({
-       next: (user) =>{ this.isLoggedIn = !!user; },
-       error: (err) => { console.log(err); },
-       complete: () => { console.log(this.isLoggedIn); }
-     }
-     )
-    }
+  // getCurrentUser() {
+  //   this.currentUser = this.accountService.currentUser$.subscribe({
+  //      next: (user) =>{ this.isLoggedIn = !!user; },
+  //      error: (err) => { console.log(err); },
+  //      complete: () => { console.log(this.isLoggedIn); }
+  //    }
+  //    )
+  //   }
  
   onTabChange(event : MatTabChangeEvent) {
     console.log(event.tab.textLabel);
@@ -60,7 +63,7 @@ export class LoginComponent implements OnInit {
         console.log(response);
         if(response && response.username === this.loginForm.value.username) {
           console.log(response);
-         this.getCurrentUser();
+          this.currentUser$ = this.accountService.currentUser$;
           this.router.navigate(['home']);
         }
       },
