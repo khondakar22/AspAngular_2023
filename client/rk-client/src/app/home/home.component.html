@@ -1,4 +1,4 @@
-<app-logged-in-main >
+<app-logged-in-main *ngIf="accountService.currentUser$ | async">
 
 </app-logged-in-main>
 <app-logged-out-main *ngIf="!(accountService.currentUser$ | async)" >

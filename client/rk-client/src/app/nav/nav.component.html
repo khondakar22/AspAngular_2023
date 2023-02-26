@@ -2,16 +2,16 @@
   <div class="container">
     <div class="menu-container">
       <div class="right-nav-item">
-        <a href="#">My Learning App</a>
+        <a routerLink="/" routerLinkActive="active">My Learning App</a>
         <ul *ngIf="accountService.currentUser$ | async" class="right-nav-item_ul">
           <li>
-            <a href="#">Matches</a>
+            <a routerLink="/members" routerLinkActive="active">Matches</a>
           </li>
           <li>
-            <a href="#">Link</a>
+            <a routerLink="/lists" routerLinkActive="active">Link</a>
           </li>
           <li>
-            <a href="#">Messages</a>
+            <a routerLink="/messages" routerLinkActive="active">Messages</a>
           </li>
         </ul>
       </div>
