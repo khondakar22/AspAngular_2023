@@ -5,6 +5,7 @@ import { AccountService } from '../_services/account.service';
 import { Router } from '@angular/router';
 import { Observable, Subscription, of } from 'rxjs';
 import { User } from '../_models/user';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,7 @@ export class LoginComponent implements OnInit {
   // isLoggedIn = false;
   currentUser$: Observable<User | null> = of(null);
   currentUser!: Subscription;
-  constructor(private accountService: AccountService, public router: Router){
+  constructor(private accountService: AccountService, public router: Router, private toastr: ToastrService) {
     this.loginForm = new FormGroup({
       username: new FormControl(''),
       password: new FormControl(''),
@@ -69,8 +70,8 @@ export class LoginComponent implements OnInit {
           this.router.navigateByUrl('/');
         }
       },
-      error: (err) => {console.log(err)},
-      complete: () => {console.log('complete')}
+      error: (err) => {this.toastr.error(err.error)},
+      complete: () => {this.toastr.success('Welcome to the app')}
     });
   }
   onRegistration(){
@@ -81,8 +82,8 @@ export class LoginComponent implements OnInit {
         this.currentUser$ = this.accountService.currentUser$;
         this.router.navigateByUrl('/');
       },
-      error: (err) => {console.log(err)},
-      complete: () => {console.log('complete')}
+      error: (err) => {this.toastr.error(err.error)},
+      complete: () => {this.toastr.success('Thank you for registering')}
     })
   }
 }

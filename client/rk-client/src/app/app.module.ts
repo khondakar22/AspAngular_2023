@@ -25,6 +25,7 @@ import { LoggedInMainComponent } from './main/logged-in-main/logged-in-main.comp
 import { LoggedOutMainComponent } from './main/logged-out-main/logged-out-main.component';
 import { FooterComponent } from './footer/footer.component';
 import { MatSelectModule } from '@angular/material/select';
+import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,6 +56,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    ToastrModule.forRoot({positionClass: 'toast-bottom-right'}), 
   ],
   providers: [],
   bootstrap: [AppComponent],
