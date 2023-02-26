@@ -16,9 +16,13 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { HomeComponent } from './home/home.component'
+import { HomeComponent } from './home/home.component';
+import { MemberListComponent } from './members/member-list/member-list.component';
+import { MemberDetailsComponent } from './members/member-details/member-details.component';
+import { ListsComponent } from './lists/lists.component';
+import { MessagesComponent } from './messages/messages.component'
 @NgModule({
-  declarations: [AppComponent, NavComponent, LoginComponent, HomeComponent],
+  declarations: [AppComponent, NavComponent, LoginComponent, HomeComponent, MemberListComponent, MemberDetailsComponent, ListsComponent, MessagesComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
