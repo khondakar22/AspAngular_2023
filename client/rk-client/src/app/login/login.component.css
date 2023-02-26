@@ -9,7 +9,7 @@
 }
 .example-card {
   background-color: #212121;
-  width: max-content;
+    width: 400px;
   height: max-content;
 
 }

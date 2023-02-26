@@ -9,5 +9,14 @@ namespace Rk.Webapi.Dto
         [Required]
         public string Password { get; set; }
 
+        public string Confirmpassword { get; set; }
+
+        public string Firstname { get; set; }
+
+        public string Lastname { get; set; }
+
+        public int Gender { get; set; }
+        public string Email { get; set; }
+
     }
 }

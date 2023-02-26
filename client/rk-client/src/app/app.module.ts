@@ -20,9 +20,25 @@ import { HomeComponent } from './home/home.component';
 import { MemberListComponent } from './members/member-list/member-list.component';
 import { MemberDetailsComponent } from './members/member-details/member-details.component';
 import { ListsComponent } from './lists/lists.component';
-import { MessagesComponent } from './messages/messages.component'
+import { MessagesComponent } from './messages/messages.component';
+import { LoggedInMainComponent } from './main/logged-in-main/logged-in-main.component';
+import { LoggedOutMainComponent } from './main/logged-out-main/logged-out-main.component';
+import { FooterComponent } from './footer/footer.component';
+import { MatSelectModule } from '@angular/material/select';
 @NgModule({
-  declarations: [AppComponent, NavComponent, LoginComponent, HomeComponent, MemberListComponent, MemberDetailsComponent, ListsComponent, MessagesComponent],
+  declarations: [
+    AppComponent,
+    NavComponent,
+    LoginComponent,
+    HomeComponent,
+    MemberListComponent,
+    MemberDetailsComponent,
+    ListsComponent,
+    MessagesComponent,
+    LoggedInMainComponent,
+    LoggedOutMainComponent,
+    FooterComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -37,7 +53,8 @@ import { MessagesComponent } from './messages/messages.component'
     MatCardModule,
     MatButtonModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

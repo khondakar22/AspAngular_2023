@@ -1,5 +1,3 @@
-
-<app-home *ngIf="!(currentUser$ | async)"></app-home>
 <div *ngIf="!(currentUser$ | async)" class="container">
   <mat-card class="example-card">
     
@@ -42,11 +40,20 @@
             <form [formGroup]="registrationForm" #myRegistrationForm="ngForm" (ngSubmit)="onRegistration()"> 
                 <div class="login-form">
                     <mat-form-field appearance="outline">
+                        <mat-label>Enter your username</mat-label>
+                        <input
+                        matInput
+                        placeholder="max-username"
+                        formControlName="username"
+                        required
+                        />
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
                         <mat-label>Enter your First Name</mat-label>
                         <input
                         matInput
                         placeholder="Muster"
-                        formControlName="firstName"
+                        formControlName="firstname"
                         required
                         />
                     </mat-form-field>
@@ -55,7 +62,7 @@
                         <input
                         matInput
                         placeholder="Maximilian"
-                        formControlName="lastName"
+                        formControlName="lastname"
                         required
                         />
                     </mat-form-field>
@@ -68,6 +75,15 @@
                         required
                         />
                     </mat-form-field>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Select</mat-label>
+                        <mat-select formControlName="gender">
+                          <mat-option value="1">Male</mat-option>
+                          <mat-option value="0">Female</mat-option>
+                          <mat-option value="2">Third</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    
                     <mat-form-field appearance="outline">
                         <mat-label>Enter your password</mat-label>
                         <input formControlName="password" required matInput [type]="hide ? 'password' : 'text'" />
@@ -85,7 +101,7 @@
                     </mat-form-field>
                     <mat-form-field appearance="outline">
                         <mat-label>Confirm Password</mat-label>
-                        <input formControlName="confirmPassword" required matInput [type]="hide ? 'password' : 'text'" />
+                        <input formControlName="confirmpassword" required matInput [type]="hide ? 'password' : 'text'" />
                         <a
                         mat-icon-button
                         matSuffix
@@ -105,7 +121,7 @@
         </mat-tab-group>
       </mat-card-content>
       <mat-card-actions class="mat__card__action">
-        <button mat-button>Cancel</button>
+        <a routerLink="/home" mat-button>Cancel</a>
         <button *ngIf="!isRegistrationForm"   [disabled]="!loginForm.valid"  (click)="myLoginForm.ngSubmit.emit()" type="submit" mat-button>
           Save
         </button>

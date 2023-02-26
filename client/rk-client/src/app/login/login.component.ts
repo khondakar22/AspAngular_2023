@@ -25,11 +25,13 @@ export class LoginComponent implements OnInit {
       password: new FormControl(''),
     });
     this.registrationForm = new FormGroup({
+      username: new FormControl(''),
       email: new FormControl(''),
       password: new FormControl(''),
-      firstName: new FormControl(''),
-      lastName: new FormControl(''),
-      confirmPassword: new FormControl('')
+      firstname: new FormControl(''),
+      lastname: new FormControl(''),
+      gender: new FormControl(''),
+      confirmpassword: new FormControl('')
     });
   }
   ngOnInit(): void {
@@ -73,5 +75,12 @@ export class LoginComponent implements OnInit {
   }
   onRegistration(){
     console.log(this.registrationForm.value);
+    this.accountService.onRegister(this.registrationForm.value).subscribe({
+      next: (response: any) => {
+        console.log(response);
+      },
+      error: (err) => {console.log(err)},
+      complete: () => {console.log('complete')}
+    })
   }
 }
