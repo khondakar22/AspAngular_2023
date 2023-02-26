@@ -1,0 +1,62 @@
+.menu-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .right-nav-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .right-nav-item_ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .right-nav-item a {
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 22px;
+    color: #fff;
+  }
+
+  .right-nav-item ul  {
+    margin-top: 0.8rem;
+    padding-left: 0rem;
+  }
+
+  
+  .right-nav-item ul >  li {
+
+    list-style-type: none;
+  }
+  
+  .right-nav-item ul > li > a {
+    font-weight: 200;
+    font-size: 1rem;
+    padding-left: 1.5rem;
+  } 
+  .right-nav-item ul > li > a:hover {
+    color: peru;
+    font-size: 1.2rem;
+    font-weight: 400;
+  } 
+::ng-deep .left-nav-item > a >  .material-symbols-outlined {
+    font-size: 1.2rem;
+    font-weight: 600;
+ }
+
+
+  .material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48;
+    color: white;
+    cursor: pointer;
+  }
+
+  ::ng-deep .custom-mat-menu {
+    background: gray 
+  }

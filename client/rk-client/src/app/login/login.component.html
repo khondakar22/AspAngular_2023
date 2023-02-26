@@ -1,0 +1,116 @@
+<div *ngIf="!isLoggedIn" class="container">
+  <mat-card class="example-card">
+    
+      <mat-card-content  >
+        <mat-tab-group mat-stretch-tabs="false" (selectedTabChange)="onTabChange($event)" mat-align-tabs="center">
+          <mat-tab  label="Login" >
+           
+            <form [formGroup]="loginForm"  #myLoginForm="ngForm"  (ngSubmit)="onLogin()">
+                <div class="login-form">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Enter your username</mat-label>
+                        <input
+                        matInput
+                        placeholder="max-username"
+                        formControlName="username"
+                        required
+                        />
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Enter your password</mat-label>
+                        <input formControlName="password" required matInput [type]="hide ? 'password' : 'text'" />
+                        <a
+                        mat-icon-button
+                        matSuffix
+                        (click)="hide = !hide"
+                        [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hide"
+                        >
+                        <mat-icon class="mat-visibility">{{
+                            hide ? "visibility_off" : "visibility"
+                        }}</mat-icon>
+                    </a>
+                    </mat-form-field>
+                </div>
+            </form>
+            
+        
+          </mat-tab>
+          <mat-tab label="Register">
+            <form [formGroup]="registrationForm" #myRegistrationForm="ngForm" (ngSubmit)="onRegistration()"> 
+                <div class="login-form">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Enter your First Name</mat-label>
+                        <input
+                        matInput
+                        placeholder="Muster"
+                        formControlName="firstName"
+                        required
+                        />
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Enter your Last Name</mat-label>
+                        <input
+                        matInput
+                        placeholder="Maximilian"
+                        formControlName="lastName"
+                        required
+                        />
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Enter your email</mat-label>
+                        <input
+                        matInput
+                        placeholder="pat@example.com"
+                        formControlName="email"
+                        required
+                        />
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Enter your password</mat-label>
+                        <input formControlName="password" required matInput [type]="hide ? 'password' : 'text'" />
+                        <a
+                        mat-icon-button
+                        matSuffix
+                        (click)="hide = !hide"
+                        [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hide"
+                        >
+                        <mat-icon class="mat-visibility">{{
+                            hide ? "visibility_off" : "visibility"
+                        }}</mat-icon>
+                    </a>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Confirm Password</mat-label>
+                        <input formControlName="confirmPassword" required matInput [type]="hide ? 'password' : 'text'" />
+                        <a
+                        mat-icon-button
+                        matSuffix
+                        (click)="hide = !hide"
+                        [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hide"
+                        >
+                        <mat-icon class="mat-visibility">{{
+                            hide ? "visibility_off" : "visibility"
+                        }}</mat-icon>
+                    </a>
+                    </mat-form-field>
+                </div>
+            </form>
+         
+          </mat-tab>
+        </mat-tab-group>
+      </mat-card-content>
+      <mat-card-actions class="mat__card__action">
+        <button mat-button>Cancel</button>
+        <button *ngIf="!isRegistrationForm"   [disabled]="!loginForm.valid"  (click)="myLoginForm.ngSubmit.emit()" type="submit" mat-button>
+          Save
+        </button>
+        <button *ngIf="isRegistrationForm" [disabled]="!registrationForm.valid" (click)="myRegistrationForm.ngSubmit.emit()" type="submit" mat-button>
+            Save
+          </button>
+      </mat-card-actions>
+  
+  </mat-card>
+</div>

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AccountService } from '../_services/account.service';
-
+import {  Router } from '@angular/router';
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
@@ -9,24 +8,17 @@ import { AccountService } from '../_services/account.service';
 export class NavComponent implements OnInit {
   model: any = {};
   loggedId  = false;
-  constructor(private accountService: AccountService) {}
+  constructor(public router: Router) {}
   ngOnInit(): void {
     // throw new Error('Method not implemented.');
+    this.loggedId = localStorage.getItem('isLoggedIn') === 'true';
+    console.log(this.loggedId);
   }
 
-  login() {
-    console.log('login', this.model);
-    this.accountService.onLogin(this.model).subscribe({
-      next: (response) => {
-        console.log(response);
-        this.loggedId = true;
-      },
-      error: (error) => {
-        console.log(error);
-      }
-    });
+  onLogout(){
+    localStorage.removeItem('isLoggedIn');
+    this.ngOnInit();
+    this.router.navigate(['/login-components']);
   }
-  logout() { 
-    this.loggedId = false;
-  }
+
 }

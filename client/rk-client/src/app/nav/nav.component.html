@@ -1,35 +1,41 @@
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-      <div class="container">
-        <a class="navbar-brand" href="#">TestDatingAPP</a>
-       
-          <ul class="navbar-nav me-auto mb-2 mb-md-0" *ngIf="loggedId">
-            <li class="nav-item">
-              <a class="nav-link " href="#">Matches</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link">Messages</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" (click)="logout()">Logout</a>
-              </li>
-          </ul>
-          <div class="dropdown" *ngIf="loggedId">
-            <a  class="dropdown-toggle text-light" dropdownToggle>Welome user</a>
-            <div class="dropdown-menu" *dropdownMenu>
-                <a  class="dropdown-item">Edit Profile</a>
-                <a  class="dropdown-item" (click)="logout()">Logout</a>
-            </div>
-          </div>
-          <form *ngIf="!loggedId"  #loginForm="ngForm" class="d-flex" (ngSubmit)="login()" autocomplete="off" >
-            <input name="username" [(ngModel)]="model.username" class="form-control me-2" type="text" placeholder="Username" >
-            <input name="password" [(ngModel)]="model.password"  class="form-control me-2" type="password" placeholder="Password" >
-            <button class="btn btn-outline-success" type="submit">Login</button>
-          </form>
-      
-
+<mat-toolbar>
+  <div class="container">
+    <div class="menu-container">
+      <div class="right-nav-item">
+        <a href="#">My Learning App</a>
+        <ul *ngIf="loggedId" class="right-nav-item_ul">
+          <li>
+            <a href="#">Matches</a>
+          </li>
+          <li>
+            <a href="#">Link</a>
+          </li>
+          <li>
+            <a href="#">Messages</a>
+          </li>
+        </ul>
       </div>
-    </nav>
 
+      <div class="left-nav-item">
+        <ng-container *ngIf="!loggedId">
+          <a mat-button routerLink="/login-components">
+            <mat-icon class="material-symbols-outlined">login</mat-icon>
+          </a>
+        </ng-container>
+        <ng-container *ngIf="loggedId">
+          <a mat-button [matMenuTriggerFor]="belowMenu">
+            <mat-icon class="material-symbols-outlined">people</mat-icon>
+          </a>
+          <mat-menu
+            class="custom-mat-menu"
+            #belowMenu="matMenu"
+            yPosition="below"
+          >
+            <a mat-menu-item>Edit Profile</a>
+            <a mat-menu-item (click)="onLogout()">Logout</a>
+          </mat-menu>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</mat-toolbar>

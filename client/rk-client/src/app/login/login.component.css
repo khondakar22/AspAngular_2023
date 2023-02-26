@@ -1,0 +1,35 @@
+.mat-tab-group {
+  margin-bottom: 48px;
+}
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+.example-card {
+  background-color: #212121;
+  width: max-content;
+  height: max-content;
+
+}
+.mat__card__action {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.mat__card__action > button {
+  margin-left: 0.5rem;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.mat-visibility {
+  color: rgba(255, 255, 255, 0.6);
+}
