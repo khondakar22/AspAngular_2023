@@ -33,6 +33,7 @@ namespace Rk.Webapi.Controllers
             var thing = _dataContext.Users.Find(-1);
             var thingToReturn = thing.ToString();
             return Ok(thingToReturn);
+
         }
 
         [HttpGet("bad-request")]

@@ -19,6 +19,8 @@ import { LoggedInMainComponent } from './main/logged-in-main/logged-in-main.comp
 import { LoggedOutMainComponent } from './main/logged-out-main/logged-out-main.component';
 import { FooterComponent } from './footer/footer.component';
 import { SharedModule } from './_modules/shared.module';
+import { TestErrorComponent } from './errors/test-error/test-error.component';
+
 
 @NgModule({
   declarations: [
@@ -33,6 +35,7 @@ import { SharedModule } from './_modules/shared.module';
     LoggedInMainComponent,
     LoggedOutMainComponent,
     FooterComponent,
+    TestErrorComponent,
   ],
   imports: [
     BrowserModule,

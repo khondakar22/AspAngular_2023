@@ -15,7 +15,9 @@
               <a routerLink="/messages" routerLinkActive="active">Messages</a>
             </li>
           </ng-container>
-        
+          <li>
+            <a routerLink="/test-error" routerLinkActive="active">Errors</a>
+          </li>
         </ul>
       </div>
 
@@ -34,7 +36,7 @@
             #belowMenu="matMenu"
             yPosition="below"
           >
-            <a mat-menu-item>Hello {{user.username | titlecase }} </a> 
+            <a mat-menu-item>Hello {{user.username | titlecase }} </a>
             <a mat-menu-item (click)="onLogout()">Logout</a>
           </mat-menu>
         </ng-container>
