@@ -21,6 +21,8 @@ import { FooterComponent } from './footer/footer.component';
 import { SharedModule } from './_modules/shared.module';
 import { TestErrorComponent } from './errors/test-error/test-error.component';
 import { ErrorInterceptorsInterceptor } from './_interceptors/error-interceptors.interceptor';
+import { NotFoundComponent } from './errors/not-found/not-found.component';
+import { ServerErrorComponent } from './errors/server-error/server-error.component';
 
 
 @NgModule({
@@ -37,6 +39,8 @@ import { ErrorInterceptorsInterceptor } from './_interceptors/error-interceptors
     LoggedOutMainComponent,
     FooterComponent,
     TestErrorComponent,
+    NotFoundComponent,
+    ServerErrorComponent,
   ],
   imports: [
     BrowserModule,

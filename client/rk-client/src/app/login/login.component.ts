@@ -48,17 +48,17 @@ export class LoginComponent implements OnInit {
   //    }
   //    )
   //   }
- 
+
   onTabChange(event : MatTabChangeEvent) {
     console.log(event.tab.textLabel);
     if (event.tab.textLabel === 'Login') {
-      this.isRegistrationForm = false; 
+      this.isRegistrationForm = false;
     }
     if (event.tab.textLabel === 'Register') {
       this.isRegistrationForm = true;
-    } 
+    }
   }
- 
+
   onLogin() {
     console.log(this.loginForm.value);
     this.accountService.onLogin(this.loginForm.value).subscribe({
@@ -70,7 +70,7 @@ export class LoginComponent implements OnInit {
           this.router.navigateByUrl('/');
         }
       },
-      error: (err) => {this.toastr.error(err.error)},
+      error: (_err) => {},
       complete: () => {this.toastr.success('Welcome to the app')}
     });
   }

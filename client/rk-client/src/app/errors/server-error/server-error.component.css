@@ -1,0 +1,13 @@
+.main_server {
+  width: 100vw;
+  height: 100vh;
+  background-color: #9D1255;
+  overflow: hidden;
+  background-image: linear-gradient(45deg, #e91e63, #420046);
+  font-family: "Open Sans";
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
