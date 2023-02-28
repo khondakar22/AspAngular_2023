@@ -23,7 +23,7 @@ namespace Rk.Webapi.Entities
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSaltBytes { get; set; }
 
-        public DateOnly DateOfBirth { get; set; }
+        public DateTime DateOfBirth { get; set; }
         public string KnownAs { get; set; }
         public DateTime Created { get; set; } = DateTime.UtcNow;
 

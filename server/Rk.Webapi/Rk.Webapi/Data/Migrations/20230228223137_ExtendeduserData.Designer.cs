@@ -11,8 +11,8 @@ using Rk.Webapi.Data;
 namespace Rk.Webapi.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230228210856_ExtendedUserEntity")]
-    partial class ExtendedUserEntity
+    [Migration("20230228223137_ExtendeduserData")]
+    partial class ExtendeduserData
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,7 +34,7 @@ namespace Rk.Webapi.Data.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateOnly>("DateOfBirth")
+                    b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Gender")
