@@ -1,4 +1,6 @@
 ﻿
+using Rk.Webapi.Extensions;
+
 namespace Rk.Webapi.Entities
 {
     /**
@@ -34,6 +36,10 @@ namespace Rk.Webapi.Entities
         public string Country { get; set; }
         public List<Photo> Photos { get; set; } = new();
 
+        public int GetAge()
+        {
+            return DateOfBirth.CalculateAge();
+        }
     }
 
    
