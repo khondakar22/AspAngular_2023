@@ -18,6 +18,7 @@ namespace Rk.Webapi.Extensions
             service.AddCors();
             // Add Services
             service.AddScoped<ITokenService, TokenService>();
+            service.AddScoped<IUserRepository, UserRepository>();
             return service;
         }
     }
