@@ -34,7 +34,8 @@ namespace Rk.Webapi.Data
 
         public async Task<AppUser> GetUserByNameAsync(string name)
         {
-            return await _context.Users.Include(p => p.Photos).FirstOrDefaultAsync(x => String.Equals(x.UserName, name, StringComparison.CurrentCultureIgnoreCase));
+            if(name == null) throw new ArgumentNullException(nameof(name));
+            return await _context.Users.Include(p => p.Photos).FirstOrDefaultAsync(x => !string.IsNullOrEmpty(x.UserName)  && x.UserName.ToLower() == name.ToLower());
         }
     }
 }
