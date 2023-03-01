@@ -1,16 +1,22 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Rk.Webapi.Dto;
 using Rk.Webapi.Entities;
 using Rk.Webapi.Interfaces;
+using System.Xml.Linq;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 
 namespace Rk.Webapi.Data
 {
-    public class UserRepository: IUserRepository
+    public class UserRepository : IUserRepository
     {
         private readonly DataContext _context;
+        private readonly IMapper _mapper;
 
-        public UserRepository(DataContext context)
+        public UserRepository(DataContext context, IMapper mapper)
         {
-            this._context = context;
+            _context = context;
+            _mapper = mapper;
         }
         public void Update(AppUser user)
         {
@@ -24,7 +30,7 @@ namespace Rk.Webapi.Data
 
         public async Task<IEnumerable<AppUser>> GetUsersAsync()
         {
-            return await _context.Users.Include(p => p.Photos) .ToListAsync();
+            return await _context.Users.Include(p => p.Photos).ToListAsync();
         }
 
         public async Task<AppUser> GetUserByIdAsync(int id)
@@ -34,8 +40,21 @@ namespace Rk.Webapi.Data
 
         public async Task<AppUser> GetUserByNameAsync(string name)
         {
-            if(name == null) throw new ArgumentNullException(nameof(name));
-            return await _context.Users.Include(p => p.Photos).FirstOrDefaultAsync(x => !string.IsNullOrEmpty(x.UserName)  && x.UserName.ToLower() == name.ToLower());
+            if (name == null) throw new ArgumentNullException(nameof(name));
+            return await _context.Users.Include(p => p.Photos)
+                .FirstOrDefaultAsync(x => !string.IsNullOrEmpty(x.UserName) && x.UserName.ToLower() == name.ToLower());
+        }
+
+        public async Task<IEnumerable<MemberDto>> GetMembersAsync()
+        {
+            return await _context.Users.ProjectTo<MemberDto>(_mapper.ConfigurationProvider).ToListAsync();
+        }
+
+        public async Task<MemberDto> GetMemberAsync(string userName)
+        {
+            return await _context.Users
+                .Where(x => !string.IsNullOrEmpty(x.UserName) && x.UserName.ToLower() == userName.ToLower())
+                .ProjectTo<MemberDto>(_mapper.ConfigurationProvider).SingleOrDefaultAsync();
         }
     }
 }

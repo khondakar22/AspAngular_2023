@@ -25,9 +25,7 @@ namespace Rk.Webapi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers()
         {
-            var users = await _userRepository.GetUsersAsync();
-            var usersToReturn = _mapper.Map<IEnumerable<MemberDto>>(users);
-            return Ok(usersToReturn);
+            return Ok(await _userRepository.GetMembersAsync());
         }
 
         
@@ -40,9 +38,7 @@ namespace Rk.Webapi.Controllers
         [HttpGet("{name}")]
         public async Task<ActionResult<MemberDto>> GetUserName(string name)
         {
-            var user = await _userRepository.GetUserByNameAsync(name);
-            var usersToReturn = _mapper.Map<MemberDto>(user);
-            return Ok(usersToReturn);
+            return Ok(await _userRepository.GetMemberAsync(name));
         }
     }
 }
