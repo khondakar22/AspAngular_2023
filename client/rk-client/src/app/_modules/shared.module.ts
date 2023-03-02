@@ -11,6 +11,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { ToastrModule } from 'ngx-toastr';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 @NgModule({
   declarations: [],
   imports: [
@@ -26,6 +27,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatSelectModule,
     MatProgressSpinnerModule,
     ToastrModule.forRoot({ positionClass: 'toast-bottom-right' }),
+    NgxGalleryModule,
   ],
   exports: [
     MatToolbarModule,
@@ -39,6 +41,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatSelectModule,
     MatProgressSpinnerModule,
     ToastrModule,
+    NgxGalleryModule
   ],
 })
 export class SharedModule {}
