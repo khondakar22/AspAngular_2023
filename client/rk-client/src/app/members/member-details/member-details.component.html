@@ -1,1 +1,61 @@
-<p>member-details works!</p>
+<div class="container mt-5" *ngIf="member">
+  <div class="row">
+    <div class="col-4">
+      <div class="card">
+        <img
+          src="{{ member.photoUrl || './assets/user.png' }}"
+          alt="{{ member.knownAs }}"
+          class="card-img-top img-thumbnail"
+        />
+        <div class="card-body">
+          <div>
+            <strong>Location:</strong>
+            <p>{{ member.city }} , {{ member.country }}</p>
+          </div>
+          <div>
+            <strong>Age:</strong>
+            <p>{{ member.age }}</p>
+          </div>
+          <div>
+            <strong>Last active:</strong>
+            <p>{{ member.lastActive }}</p>
+          </div>
+          <div>
+            <strong>Member Since:</strong>
+            <p>{{ member.created }}</p>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="example-btn">
+            <button mat-raised-button color="primary">Like</button>
+            <button mat-raised-button color="accent">Messages</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-8">
+      <mat-tab-group mat-stretch-tabs class="example-stretched-tabs mat-elevation-z4">
+        <mat-tab label="About {{member.knownAs}}">
+          <div class="m-3">
+            <h4  > Description </h4>
+            <p>{{member.introduction}}</p>
+            <h4> Looking for </h4>
+            <p>{{member.lookingFor}}</p>
+          </div>
+
+        </mat-tab>
+        <mat-tab label="Interests">
+          <div class="m-3">
+            <h4>
+              Interests
+            </h4>
+            <p>{{member.interests}}</p>
+          </div>
+
+        </mat-tab>
+        <mat-tab label="Photos"> <div class="m-3">Photos will go there</div>  </mat-tab>
+        <mat-tab label="Messages"> <div class="m-3">Message will go there</div> </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+.example-btn {
+  display: flex;
+  justify-content: space-between;
+}
+.example-btn > button {
+  width:  12rem;
+  height: 2.5rem;
+}
+
+.img-thumbnail {
+  margin: 25px;
+  width: 85%;
+  height: 85%;
+  background-color: black;
+}
+.card {
+  background-color: black;
+  height: 700px;
+}
+.card-body {
+  padding: 0 25px;
+  background-color: black;
+  color: whitesmoke;
+}
+.card-footer {
+  padding: 10px 15px;
+  background-color: black;
+  border-top: none;
+}
+
+.example-stretched-tabs {
+  width: 800px;
+  height: 700px;
+
+}
+::ng-deep .mat-mdc-tab .mdc-tab__text-label {
+  color: rgba(0,0,0,.87) !important;
+  padding: 10px;
+}
+
