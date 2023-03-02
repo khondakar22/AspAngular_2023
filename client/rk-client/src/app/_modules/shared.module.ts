@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { ToastrModule } from 'ngx-toastr';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 @NgModule({
   declarations: [],
   imports: [
@@ -23,7 +24,8 @@ import { ToastrModule } from 'ngx-toastr';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    ToastrModule.forRoot({positionClass: 'toast-bottom-right'}), 
+    MatProgressSpinnerModule,
+    ToastrModule.forRoot({ positionClass: 'toast-bottom-right' }),
   ],
   exports: [
     MatToolbarModule,
@@ -35,7 +37,8 @@ import { ToastrModule } from 'ngx-toastr';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    ToastrModule
-  ]
+    MatProgressSpinnerModule,
+    ToastrModule,
+  ],
 })
-export class SharedModule { }
+export class SharedModule {}

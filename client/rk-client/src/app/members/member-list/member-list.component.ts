@@ -9,6 +9,7 @@ import { MembersService } from 'src/app/_services/members.service';
 })
 export class MemberListComponent implements OnInit {
   members: Member[] = [];
+  isLoading = true;
   /**
    *
    */
@@ -25,7 +26,11 @@ export class MemberListComponent implements OnInit {
     this.memberService.getMembers().subscribe({
       next: (res) =>{
         console.log(res);
-        this.members = res
+        if(res && res.length > 0 ) {
+          this.members = res
+          this.isLoading = false;
+        }
+
       }
     })
   }

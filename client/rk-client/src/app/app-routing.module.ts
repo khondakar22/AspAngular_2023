@@ -12,7 +12,7 @@ import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
 
 const routes: Routes = [
- 
+  { path: '',   redirectTo: '/home', pathMatch: 'full' },
   {
     path: '',
     runGuardsAndResolvers: 'always',
@@ -29,7 +29,6 @@ const routes: Routes = [
   { path: 'test-error', component: TestErrorComponent  },
   { path: 'not-found', component: NotFoundComponent  },
   { path: 'server-error', component: ServerErrorComponent  },
-  { path: '',   redirectTo: '/home', pathMatch: 'full' },
   { path: '**',   component: NotFoundComponent, pathMatch: 'full' },
 ];
 
