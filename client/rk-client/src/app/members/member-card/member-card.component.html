@@ -1,0 +1,49 @@
+<mat-card class="example-card mb-3" *ngIf="member">
+  <mat-card-header>
+    <img
+      mat-card-avatar
+      class="example-header-image"
+      src="{{ member.photoUrl }}"
+      alt="{{ member.knownAs }}"
+    />
+    <mat-card-title class="example-card-title">{{ member.knownAs }}</mat-card-title>
+    <mat-card-subtitle>{{ member.city }}</mat-card-subtitle>
+  </mat-card-header>
+    <img
+    mat-card-image
+    class="example-mat-card-img"
+    src="{{ member.photos[0].url }}"
+    alt="{{ member.knownAs }}"
+  />
+<ul class="list-inline member-icons animate text-center">
+    <li class="list-inline-item">
+      <button mat-mini-fab color="primary">
+        <mat-icon>open_in_new</mat-icon>
+      </button>
+    </li>
+    <li class="list-inline-item">
+      <button mat-mini-fab color="primary">
+        <mat-icon>message</mat-icon>
+      </button>
+    </li>
+  </ul>
+
+
+  <mat-card-actions class="example-card-action">
+  <a (click)="onLike()">
+    <mat-icon>
+      thumb_up
+    </mat-icon>
+  </a>
+  <a (click)="onLike()">
+    <mat-icon>
+      favorite
+    </mat-icon>
+  </a>
+  <a (click)="onLike()">
+    <mat-icon>
+              person_add
+    </mat-icon>
+  </a>
+  </mat-card-actions>
+</mat-card>

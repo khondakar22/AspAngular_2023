@@ -1,0 +1,61 @@
+.example-card {
+  max-width: 200px;
+  background-color:#111010;
+  box-shadow: 0px 11px 15px 7px rgba(4, 4, 4, 0.2),
+    0px 24px 38px 3px rgba(0, 0, 0, 0),
+    0px 9px 46px 8px rgba(32, 33, 33, 0.12);
+    overflow: hidden;
+    position: relative;
+}
+.member-icons {
+  position: absolute;
+  bottom: -30%;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 0;
+}
+.example-card:hover .member-icons {
+  bottom: 15%;
+  opacity: 1;
+}
+
+.example-header-image {
+  background-size: cover;
+}
+.example-mat-card-img:hover {
+  transform: scale(1.2, 1.2);
+  transition-duration: 500ms;
+  transition-timing-function: ease-out;
+  opacity: 0.7;
+}
+
+.example-mat-card-img {
+  transform: scale(1.0, 1.0);
+  transition-duration: 500ms;
+  transition-timing-function: ease-out;
+}
+.example-card-title {
+  color: white;
+}
+.animate{
+  transition: all 0.3s ease-in-out;
+}
+.example-card-action{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+
+.example-card-action > a {
+  cursor: pointer;
+}
+
+.example-card-action > a > mat-icon {
+  color: aliceblue;
+}
+.example-card-action > a > :hover {
+  color: rgb(255, 0, 0);
+}
+
