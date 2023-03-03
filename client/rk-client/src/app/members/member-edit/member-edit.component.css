@@ -1,0 +1,35 @@
+.img-thumbnail {
+  margin: 25px;
+  width: 88%;
+  height: 85%;
+  background-color: rgb(16, 16, 16);
+}
+.card {
+  background-color: rgb(255, 55, 0);
+  min-width: fit-content;
+  min-height: fit-content;
+}
+.card-body {
+  padding: 30px 25px;
+  background-color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+}
+.card-footer {
+  padding: 10px 15px;
+  background-color: black;
+  border-top: none;
+
+}
+.card-footer > button {
+  min-width: 400px;
+}
+
+.example-stretched-tabs {
+  min-width: fit-content;
+  min-height: fit-content;
+
+}
+::ng-deep .mat-mdc-tab .mdc-tab__text-label {
+  color: rgba(0,0,0,.87) !important;
+  padding: 10px;
+}
