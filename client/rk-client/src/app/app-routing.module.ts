@@ -11,6 +11,7 @@ import { TestErrorComponent } from './errors/test-error/test-error.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
+import { PreventUnsavedChangesGuard } from './_guards/prevent-unsaved-changes.guard';
 
 const routes: Routes = [
   { path: '',   redirectTo: '/home', pathMatch: 'full' },
@@ -21,7 +22,7 @@ const routes: Routes = [
     children: [
       { path: 'members', component: MemberListComponent },
       { path: 'members/:userName', component: MemberDetailsComponent  },
-      { path: 'member/edit', component: MemberEditComponent  },
+      { path: 'member/edit', component: MemberEditComponent, canDeactivate:[ PreventUnsavedChangesGuard]  },
       { path: 'lists', component: ListsComponent  },
       { path: 'messages', component: MessagesComponent  },
     ]
