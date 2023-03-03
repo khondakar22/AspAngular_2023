@@ -36,7 +36,7 @@
             #belowMenu="matMenu"
             yPosition="below"
           >
-            <a mat-menu-item>Hello {{user.username | titlecase }} </a>
+            <a routerLink="/member/edit" mat-menu-item>Hello {{user.username | titlecase }} </a>
             <a mat-menu-item (click)="onLogout()">Logout</a>
           </mat-menu>
         </ng-container>
