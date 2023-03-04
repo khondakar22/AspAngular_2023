@@ -13,6 +13,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { FileUploadModule } from 'ng2-file-upload';
 @NgModule({
   declarations: [],
   imports: [
@@ -29,7 +30,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     MatProgressSpinnerModule,
     ToastrModule.forRoot({ positionClass: 'toast-bottom-right' }),
     NgxGalleryModule,
-    NgxSpinnerModule.forRoot({ type: 'square-loader' })
+    NgxSpinnerModule.forRoot({ type: 'square-loader' }),
+    FileUploadModule
   ],
   exports: [
     MatToolbarModule,
@@ -44,7 +46,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     MatProgressSpinnerModule,
     ToastrModule,
     NgxGalleryModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    FileUploadModule
   ],
 })
 export class SharedModule {}

@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --ssl",
+    "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
@@ -23,6 +23,7 @@
     "@kolkov/ngx-gallery": "^2.0.1",
     "bootstrap": "^5.2.3",
     "font-awesome": "^4.7.0",
+    "ng2-file-upload": "^4.0.0",
     "ngx-bootstrap": "^10.2.0",
     "ngx-spinner": "^15.0.1",
     "ngx-toastr": "^16.0.2",

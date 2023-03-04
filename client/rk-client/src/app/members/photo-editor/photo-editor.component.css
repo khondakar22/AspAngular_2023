@@ -1,0 +1,17 @@
+.example-button {
+  display: flex;
+  align-items: center;
+  margin-left: 1rem;
+}
+.my-drop-zone {
+  display: flex;
+  align-items: center;
+}
+
+.nv-file-over  {
+  border: dotted 3px red;
+}
+
+input[type=file] {
+  color: transparent;
+}
