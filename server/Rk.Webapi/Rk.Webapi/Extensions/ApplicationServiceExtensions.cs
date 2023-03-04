@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Rk.Webapi.Data;
+using Rk.Webapi.Helpers;
 using Rk.Webapi.Interfaces;
 using Rk.Webapi.Services;
 
@@ -20,6 +21,8 @@ namespace Rk.Webapi.Extensions
             service.AddScoped<ITokenService, TokenService>();
             service.AddScoped<IUserRepository, UserRepository>();
             service.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            service.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
+            service.AddScoped<IPhotoService, PhotoService>();
             return service;
         }
     }
