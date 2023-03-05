@@ -15,3 +15,10 @@
 input[type=file] {
   color: transparent;
 }
+::ng-deep .mat-mdc-raised-button[disabled][disabled] {
+  --mdc-protected-button-disabled-label-text-color: gray;
+    --mdc-protected-button-container-color: gray;
+    --mdc-protected-button-label-text-color: gray;
+    --mdc-protected-button-container-elevation: gray;
+
+}

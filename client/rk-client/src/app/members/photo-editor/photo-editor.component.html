@@ -5,8 +5,8 @@
     <button
     [disabled]="photo.isMain"
     (click)="setMainPhoto(photo)"
-   mat-raised-button color="success" >Main</button>
-    <button mat-icon-button color="primary">
+   mat-raised-button color="primary" >Main</button>
+    <button    [disabled]="photo.isMain" mat-icon-button (click)="deletePhoto(photo.id)" color="warn">
       <mat-icon>delete</mat-icon>
     </button>
   </div>
