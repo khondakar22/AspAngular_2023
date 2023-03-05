@@ -62,6 +62,13 @@
 
           </mat-tab>
         </mat-tab-group>
+        <div class="row" *ngIf="validationErrors">
+            <ul class="text-danger">
+              <li *ngFor="let errors of validationErrors">
+                {{errors}}
+              </li>
+            </ul>
+        </div>
       </mat-card-content>
       <mat-card-actions class="mat__card__action">
         <a routerLink="/home" mat-button>Cancel</a>

@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup ;
   isRegistrationForm = false;
   minDate: Date = new Date();
+  validationErrors: string[] | undefined;
   // isLoggedIn = false;
   currentUser$: Observable<User | null> = of(null);
   currentUser!: Subscription;
@@ -92,15 +93,24 @@ export class LoginComponent implements OnInit {
     });
   }
   onRegistration(){
-    console.log(this.registrationForm.value);
-    this.accountService.onRegister(this.registrationForm.value).subscribe({
+    const dob = this.getDateOnly(this.registrationForm.controls['dateOfBirth'].value);
+    const values = {...this.registrationForm.value, dateOfBirth: dob};
+    this.accountService.onRegister(values).subscribe({
       next: (response: any) => {
         console.log(response);
         this.currentUser$ = this.accountService.currentUser$;
         this.router.navigateByUrl('/');
       },
-      error: (err) => {this.toastr.error(err.error)},
+      error: (err) => {
+        this.validationErrors = err;
+      },
       complete: () => {this.toastr.success('Thank you for registering')}
     })
+  }
+
+  private getDateOnly(dob: string | undefined) {
+    if(!dob) return;
+    let theDob = new Date(dob);
+    return new Date(theDob.setMinutes(theDob.getMinutes()-theDob.getTimezoneOffset())).toISOString().slice(0,10);
   }
 }

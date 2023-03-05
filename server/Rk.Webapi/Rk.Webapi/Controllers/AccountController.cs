@@ -1,5 +1,6 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Rk.Webapi.Data;
@@ -13,11 +14,13 @@ namespace Rk.Webapi.Controllers
     {
         private readonly DataContext _context;
         private readonly ITokenService _tokenService;
+        private readonly IMapper _mapper;
 
-        public AccountController(DataContext context, ITokenService tokenService) 
+        public AccountController(DataContext context, ITokenService tokenService, IMapper mapper) 
         {
             _context = context;
             _tokenService = tokenService;
+            _mapper = mapper;
         }
 
         [HttpPost("register")] // POST: api/account/register
@@ -25,18 +28,20 @@ namespace Rk.Webapi.Controllers
         {
             if (await UserExists(registerDto.Username)) return BadRequest("Username is taken");
             using var hmac = new HMACSHA512();
-            var user = new AppUser
-            {
-                UserName = registerDto.Username.ToLower(),
-                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
-                PasswordSaltBytes = hmac.Key
-            };
+            var user = _mapper.Map<AppUser>(registerDto);
+
+            user.UserName = registerDto.Username.ToLower();
+            user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password));
+            user.PasswordSaltBytes = hmac.Key;
+            
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
             var userWithToen = new UserDto
             {
                 Username = user.UserName,
-                Token = _tokenService.CrateToken(user)
+                Token = _tokenService.CrateToken(user),
+                KnownAs = user.KnownAs
+                
             };
             return Ok(userWithToen);
         }
@@ -58,7 +63,8 @@ namespace Rk.Webapi.Controllers
             {
                 Username = user.UserName,
                 Token = _tokenService.CrateToken(user),
-                PhotoUrl = user.Photos.FirstOrDefault(x => x.IsMain)?.Url
+                PhotoUrl = user.Photos.FirstOrDefault(x => x.IsMain)?.Url,
+                KnownAs = user.KnownAs
             };
             return Ok(userWithToen);
         }
