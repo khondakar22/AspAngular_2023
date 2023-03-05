@@ -38,4 +38,4 @@
   padding: 10px;
 }
 
-.ngx-gallery { display: inline-block; margin-bottom: 20px; }
+.ngx-gallery { display: inline-block; margin-bottom: 20px; width: 100% !important; height: 600px !important; }
