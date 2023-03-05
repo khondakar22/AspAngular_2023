@@ -34,9 +34,8 @@ export class LoginComponent implements OnInit {
       gender: new FormControl(''),
       confirmpPassword: new FormControl('', [Validators.required, this.matchValues('password')])
     });
-    this.registrationForm?.controls['password'].valueChanges.subscribe({
-      next: () => {
-        this.registrationForm?.controls['confirmpassword']?.updateValueAndValidity()}
+    this.registrationForm?.controls?.['password'].valueChanges.subscribe(() => {
+      this.registrationForm?.controls?.['confirmpPassword'].updateValueAndValidity();
     })
 
   }
