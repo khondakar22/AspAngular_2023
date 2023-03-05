@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {  Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { AccountService } from '../_services/account.service';
@@ -30,27 +30,22 @@ export class LoginComponent implements OnInit {
       email: new FormControl('' , Validators.required),
       password: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(8)]),
       firstname: new FormControl('' , Validators.required),
-      lastname: new FormControl(''),
+      lastname: new FormControl('',  Validators.required),
       gender: new FormControl(''),
       confirmpPassword: new FormControl('', [Validators.required, this.matchValues('password')])
     });
-    this.registrationForm.controls['password'].valueChanges.subscribe({
-      next: () => this.registrationForm.controls['confirmpassword'].updateValueAndValidity()
+    this.registrationForm?.controls['password'].valueChanges.subscribe({
+      next: () => {
+        this.registrationForm?.controls['confirmpassword']?.updateValueAndValidity()}
     })
+
   }
   ngOnInit(): void {
     // this.getCurrentUser();
     this.currentUser$ = this.accountService.currentUser$;
     // this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
   }
-  // getCurrentUser() {
-  //   this.currentUser = this.accountService.currentUser$.subscribe({
-  //      next: (user) =>{ this.isLoggedIn = !!user; },
-  //      error: (err) => { console.log(err); },
-  //      complete: () => { console.log(this.isLoggedIn); }
-  //    }
-  //    )
-  //   }
+
 
   matchValues(matchTo: string): ValidatorFn {
     return (control: AbstractControl) => {

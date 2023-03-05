@@ -39,49 +39,12 @@
           <mat-tab label="Register">
             <form [formGroup]="registrationForm" #myRegistrationForm="ngForm" (ngSubmit)="onRegistration()">
                 <div class="login-form">
-                    <mat-form-field appearance="outline">
-                        <mat-label>Enter your username</mat-label>
-                        <input
-                        matInput
-                        placeholder="max-username"
-                        formControlName="username"
-                        required
-                        />
-                        <mat-error  *ngIf="registrationForm.get('username')?.hasError('required')">
-                          Please enter a valid username
-                        </mat-error>
-                    </mat-form-field>
-                    <mat-form-field appearance="outline">
-                        <mat-label>Enter your First Name</mat-label>
-                        <input
-                        matInput
-                        placeholder="Muster"
-                        formControlName="firstname"
-                        required
-                        />
-                    </mat-form-field>
-                    <mat-form-field appearance="outline">
-                        <mat-label>Enter your Last Name</mat-label>
-                        <input
-                        matInput
-                        placeholder="Maximilian"
-                        formControlName="lastname"
-                        required
-                        />
-                    </mat-form-field>
-                    <mat-form-field appearance="outline">
-                        <mat-label>Enter your email</mat-label>
-                        <input
-                        matInput
-                        placeholder="pat@example.com"
-                        formControlName="email"
-                        required
-                        />
+                    <app-test-input  [formControl]="$any(registrationForm.controls['username'])" [types]="'text'" [passwordType]="'p'" [iconHide]="false" [placeholder]="'Max-Musterman'" [label]="'Enter your Username'" ></app-test-input>
+                    <app-test-input  [formControl]="$any(registrationForm.controls['firstname'])" [types]="'text'" [passwordType]="'p'" [iconHide]="false" [placeholder]="'Max'" [label]="'Enter your Firstname'" ></app-test-input>
+                    <app-test-input  [formControl]="$any(registrationForm.controls['lastname'])" [types]="'text'" [passwordType]="'p'" [iconHide]="false" [placeholder]="'Musterman'" [label]="'Enter your Lastname'" ></app-test-input>
+                    <app-test-input  [formControl]="$any(registrationForm.controls['email'])" [types]="'text'" [passwordType]="'p'" [iconHide]="false"[placeholder]="'pat@example.com'" [label]="'Enter your Email'" ></app-test-input>
 
-                        <mat-error  *ngIf="registrationForm.get('email')?.hasError('required')">
-                          Please enter a valid email
-                        </mat-error>
-                    </mat-form-field>
+
                     <mat-form-field appearance="fill">
                         <mat-label>Select</mat-label>
                         <mat-select formControlName="gender">
@@ -91,52 +54,11 @@
                         </mat-select>
                       </mat-form-field>
 
-                    <mat-form-field appearance="outline">
-                        <mat-label>Enter your password</mat-label>
-                        <input formControlName="password" required matInput [type]="hide ? 'password' : 'text'" />
-                        <a
-                        mat-icon-button
-                        matSuffix
-                        (click)="hide = !hide"
-                        [attr.aria-label]="'Hide password'"
-                        [attr.aria-pressed]="hide"
-                        >
-                        <mat-icon class="mat-visibility">{{
-                            hide ? "visibility_off" : "visibility"
-                        }}</mat-icon>
-                    </a>
+                      <app-test-input  [formControl]="$any(registrationForm.controls['password'])" [types]="'password'" [iconHide]="true" [placeholder]="'pat@example.com'" [label]="'Enter your Password'" ></app-test-input>
 
-                    <mat-error  *ngIf="registrationForm.get('password')?.hasError('required')">
-                      Please enter a  password
-                    </mat-error>
-                    <mat-error  *ngIf="registrationForm.get('password')?.hasError('minlength')">
-                      Please enter minimum 4 lenght
-                    </mat-error>
-                    <mat-error  *ngIf="registrationForm.get('password')?.hasError('maxlength')">
-                      Please enter maximum 8 lenght
-                    </mat-error>
-                    </mat-form-field>
-                    <mat-form-field appearance="outline">
-                        <mat-label>Confirm Password</mat-label>
-                        <input formControlName="confirmpPassword" required matInput [type]="hide ? 'password' : 'text'" />
-                        <a
-                        mat-icon-button
-                        matSuffix
-                        (click)="hide = !hide"
-                        [attr.aria-label]="'Hide password'"
-                        [attr.aria-pressed]="hide"
-                        >
-                        <mat-icon class="mat-visibility">{{
-                            hide ? "visibility_off" : "visibility"
-                        }}</mat-icon>
-                    </a>
-                    <mat-error  *ngIf="registrationForm.get('confirmpPassword')?.hasError('required')">
-                      Please enter confirm  password
-                    </mat-error>
-                    <mat-error  *ngIf="registrationForm.get('confirmpPassword')?.hasError('notMatching')">
-                      Please  retype exact password
-                    </mat-error>
-                    </mat-form-field>
+                      <app-test-input  [formControl]="$any(registrationForm.controls['confirmpPassword'])" [types]="'password'" [iconHide]="true" [placeholder]="'pat@example.com'" [label]="'Confirm Your Password'" ></app-test-input>
+
+
                 </div>
             </form>
 
