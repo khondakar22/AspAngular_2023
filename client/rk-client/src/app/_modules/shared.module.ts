@@ -14,6 +14,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FileUploadModule } from 'ng2-file-upload';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
 @NgModule({
   declarations: [],
   imports: [
@@ -31,7 +34,10 @@ import { FileUploadModule } from 'ng2-file-upload';
     ToastrModule.forRoot({ positionClass: 'toast-bottom-right' }),
     NgxGalleryModule,
     NgxSpinnerModule.forRoot({ type: 'square-loader' }),
-    FileUploadModule
+    FileUploadModule,
+    MatRadioModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   exports: [
     MatToolbarModule,
@@ -47,7 +53,10 @@ import { FileUploadModule } from 'ng2-file-upload';
     ToastrModule,
     NgxGalleryModule,
     NgxSpinnerModule,
-    FileUploadModule
+    FileUploadModule,
+    MatRadioModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
 })
 export class SharedModule {}

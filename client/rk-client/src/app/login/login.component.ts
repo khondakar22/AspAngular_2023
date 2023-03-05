@@ -1,5 +1,5 @@
 import {  Component, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { AccountService } from '../_services/account.service';
 import { Router } from '@angular/router';
@@ -17,34 +17,48 @@ export class LoginComponent implements OnInit {
   registrationForm: FormGroup ;
   loginForm: FormGroup ;
   isRegistrationForm = false;
+  minDate: Date = new Date();
   // isLoggedIn = false;
   currentUser$: Observable<User | null> = of(null);
   currentUser!: Subscription;
-  constructor(private accountService: AccountService, public router: Router, private toastr: ToastrService) {
-    this.loginForm = new FormGroup({
-      username: new FormControl('', Validators.required),
-      password: new FormControl('' , Validators.required),
+  constructor(private accountService: AccountService,
+     public router: Router, private toastr: ToastrService,
+     public fb: FormBuilder) {
+    this.registrationForm = new FormGroup({});
+    this.loginForm = new FormGroup({});
+  }
+  ngOnInit(): void {
+    // this.getCurrentUser();
+    this.initalizeForms();
+    this.currentUser$ = this.accountService.currentUser$;
+    this.minDate.setFullYear(this.minDate.getFullYear() - 18);
+    // this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+  }
+
+  initalizeForms() {
+    this.loginForm = this.fb.group({
+      username: ['', Validators.required],
+      password: ['' , Validators.required],
     });
-    this.registrationForm = new FormGroup({
-      username: new FormControl('', Validators.required),
-      email: new FormControl('' , Validators.required),
-      password: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(8)]),
-      firstname: new FormControl('' , Validators.required),
-      lastname: new FormControl('',  Validators.required),
-      gender: new FormControl(''),
-      confirmpPassword: new FormControl('', [Validators.required, this.matchValues('password')])
+    this.registrationForm = this.fb.group({
+
+        username: ['', Validators.required],
+        email: ['' , Validators.required],
+        firstname: ['' , Validators.required],
+        lastname: ['',  Validators.required],
+        knownAs: ['',  Validators.required],
+        dateOfBirth: ['',  Validators.required],
+        city: ['',  Validators.required],
+        country: ['',  Validators.required],
+        gender: [''],
+        password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(8)]],
+        confirmpPassword: ['', [Validators.required, this.matchValues('password')]]
+
     });
     this.registrationForm?.controls?.['password'].valueChanges.subscribe(() => {
       this.registrationForm?.controls?.['confirmpPassword'].updateValueAndValidity();
     })
-
   }
-  ngOnInit(): void {
-    // this.getCurrentUser();
-    this.currentUser$ = this.accountService.currentUser$;
-    // this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-  }
-
 
   matchValues(matchTo: string): ValidatorFn {
     return (control: AbstractControl) => {

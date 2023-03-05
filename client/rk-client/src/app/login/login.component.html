@@ -39,26 +39,24 @@
           <mat-tab label="Register">
             <form [formGroup]="registrationForm" #myRegistrationForm="ngForm" (ngSubmit)="onRegistration()">
                 <div class="login-form">
+                  <mat-radio-group aria-label="Select an option" formControlName="gender">
+                    <mat-radio-button value="1">Male</mat-radio-button>
+                    <mat-radio-button value="0">Female</mat-radio-button>
+                    <mat-radio-button value="2">Third</mat-radio-button>
+                  </mat-radio-group>
                     <app-test-input  [formControl]="$any(registrationForm.controls['username'])" [types]="'text'" [passwordType]="'p'" [iconHide]="false" [placeholder]="'Max-Musterman'" [label]="'Enter your Username'" ></app-test-input>
                     <app-test-input  [formControl]="$any(registrationForm.controls['firstname'])" [types]="'text'" [passwordType]="'p'" [iconHide]="false" [placeholder]="'Max'" [label]="'Enter your Firstname'" ></app-test-input>
                     <app-test-input  [formControl]="$any(registrationForm.controls['lastname'])" [types]="'text'" [passwordType]="'p'" [iconHide]="false" [placeholder]="'Musterman'" [label]="'Enter your Lastname'" ></app-test-input>
                     <app-test-input  [formControl]="$any(registrationForm.controls['email'])" [types]="'text'" [passwordType]="'p'" [iconHide]="false"[placeholder]="'pat@example.com'" [label]="'Enter your Email'" ></app-test-input>
 
+                    <app-test-input  [formControl]="$any(registrationForm.controls['knownAs'])" [types]="'text'" [passwordType]="'p'" [iconHide]="false"[placeholder]="'Cool Name'" [label]="'Enter your known name'" ></app-test-input>
+                    <app-test-input  [formControl]="$any(registrationForm.controls['city'])" [types]="'text'" [passwordType]="'p'" [iconHide]="false"[placeholder]="'Muster City'" [label]="'Enter your City'" ></app-test-input>
+                    <app-test-input  [formControl]="$any(registrationForm.controls['country'])" [types]="'text'" [passwordType]="'p'" [iconHide]="false"[placeholder]="'Muster Country'" [label]="'Enter your Country'" ></app-test-input>
 
-                    <mat-form-field appearance="fill">
-                        <mat-label>Select</mat-label>
-                        <mat-select formControlName="gender">
-                          <mat-option value="1">Male</mat-option>
-                          <mat-option value="0">Female</mat-option>
-                          <mat-option value="2">Third</mat-option>
-                        </mat-select>
-                      </mat-form-field>
+                    <app-date-picker [formControl]="$any(registrationForm.controls['dateOfBirth'])" [minDate]="minDate" [label]="'Choose a date'" ></app-date-picker>
 
-                      <app-test-input  [formControl]="$any(registrationForm.controls['password'])" [types]="'password'" [iconHide]="true" [placeholder]="'pat@example.com'" [label]="'Enter your Password'" ></app-test-input>
-
-                      <app-test-input  [formControl]="$any(registrationForm.controls['confirmpPassword'])" [types]="'password'" [iconHide]="true" [placeholder]="'pat@example.com'" [label]="'Confirm Your Password'" ></app-test-input>
-
-
+                    <app-test-input  [formControl]="$any(registrationForm.controls['password'])" [types]="'password'" [iconHide]="true" [placeholder]="'pat@example.com'" [label]="'Enter your Password'" ></app-test-input>
+                    <app-test-input  [formControl]="$any(registrationForm.controls['confirmpPassword'])" [types]="'password'" [iconHide]="true" [placeholder]="'pat@example.com'" [label]="'Confirm Your Password'" ></app-test-input>
                 </div>
             </form>
 

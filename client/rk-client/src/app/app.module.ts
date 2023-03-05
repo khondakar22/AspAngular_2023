@@ -29,6 +29,7 @@ import { MemberEditComponent } from './members/member-edit/member-edit.component
 import { LoadingInterceptor } from './_interceptors/loading.interceptor';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 import { TestInputComponent } from './_form/test-input/test-input.component';
+import { DatePickerComponent } from './_form/date-picker/date-picker.component';
 
 
 @NgModule({
@@ -51,6 +52,7 @@ import { TestInputComponent } from './_form/test-input/test-input.component';
     MemberEditComponent,
     PhotoEditorComponent,
     TestInputComponent,
+    DatePickerComponent,
   ],
   imports: [
     BrowserModule,
