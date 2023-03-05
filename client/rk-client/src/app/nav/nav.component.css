@@ -25,22 +25,22 @@
     padding-left: 0rem;
   }
 
-  
+
   .right-nav-item ul >  li {
 
     list-style-type: none;
   }
-  
+
   .right-nav-item ul > li > a {
     font-weight: 200;
     font-size: 1rem;
     padding-left: 1.5rem;
-  } 
+  }
   .right-nav-item ul > li > a:hover {
     color: peru;
     font-size: 1.2rem;
     font-weight: 400;
-  } 
+  }
 ::ng-deep .left-nav-item > a >  .material-symbols-outlined {
     font-size: 1.2rem;
     font-weight: 600;
@@ -61,4 +61,11 @@
     background: gray;
     margin-top: 0.9rem !important;
     margin-left: 0.6rem !important;
+  }
+
+  img {
+    max-height: 40px;
+    border: 2px solid white;
+    display: inline;
+    border-radius: 50%;
   }

@@ -2,8 +2,11 @@
   <div class="col-2 mb-1" *ngFor="let photo of member.photos">
     <img src="{{photo.url}}" alt="photo of user" class="img-thumbnail mb-1">
   <div class="example-button text-center">
-    <button mat-raised-button color="primary">Main</button>
-    <button mat-icon-button color="warn">
+    <button
+    [disabled]="photo.isMain"
+    (click)="setMainPhoto(photo)"
+   mat-raised-button color="success" >Main</button>
+    <button mat-icon-button color="primary">
       <mat-icon>delete</mat-icon>
     </button>
   </div>

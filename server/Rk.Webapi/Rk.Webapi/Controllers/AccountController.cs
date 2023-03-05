@@ -43,7 +43,9 @@ namespace Rk.Webapi.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
-            var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName.ToLower() == loginDto.Username.ToLower());
+            var user = await _context.Users.Include(x => x.Photos)
+                .SingleOrDefaultAsync(x => x.UserName.ToLower() == loginDto.Username.ToLower());
+
 
             if (user == null) return Unauthorized("Invalid Username");
             using var hmac = new HMACSHA512(user.PasswordSaltBytes);
@@ -55,7 +57,8 @@ namespace Rk.Webapi.Controllers
             var userWithToen = new UserDto
             {
                 Username = user.UserName,
-                Token = _tokenService.CrateToken(user)
+                Token = _tokenService.CrateToken(user),
+                PhotoUrl = user.Photos.FirstOrDefault(x => x.IsMain)?.Url
             };
             return Ok(userWithToen);
         }
