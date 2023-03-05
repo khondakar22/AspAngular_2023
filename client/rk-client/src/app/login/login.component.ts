@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import { AccountService } from '../_services/account.service';
 import { Router } from '@angular/router';
@@ -14,26 +14,29 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class LoginComponent implements OnInit {
   hide = true;
-  registrationForm: FormGroup;
-  loginForm: FormGroup;
+  registrationForm: FormGroup ;
+  loginForm: FormGroup ;
   isRegistrationForm = false;
   // isLoggedIn = false;
   currentUser$: Observable<User | null> = of(null);
   currentUser!: Subscription;
   constructor(private accountService: AccountService, public router: Router, private toastr: ToastrService) {
     this.loginForm = new FormGroup({
-      username: new FormControl(''),
-      password: new FormControl(''),
+      username: new FormControl('', Validators.required),
+      password: new FormControl('' , Validators.required),
     });
     this.registrationForm = new FormGroup({
-      username: new FormControl(''),
-      email: new FormControl(''),
-      password: new FormControl(''),
-      firstname: new FormControl(''),
+      username: new FormControl('', Validators.required),
+      email: new FormControl('' , Validators.required),
+      password: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(8)]),
+      firstname: new FormControl('' , Validators.required),
       lastname: new FormControl(''),
       gender: new FormControl(''),
-      confirmpassword: new FormControl('')
+      confirmpPassword: new FormControl('', [Validators.required, this.matchValues('password')])
     });
+    this.registrationForm.controls['password'].valueChanges.subscribe({
+      next: () => this.registrationForm.controls['confirmpassword'].updateValueAndValidity()
+    })
   }
   ngOnInit(): void {
     // this.getCurrentUser();
@@ -48,6 +51,12 @@ export class LoginComponent implements OnInit {
   //    }
   //    )
   //   }
+
+  matchValues(matchTo: string): ValidatorFn {
+    return (control: AbstractControl) => {
+      return control.value === control.parent?.get(matchTo)?.value ? null : {notMatching: true}
+    }
+  }
 
   onTabChange(event : MatTabChangeEvent) {
     console.log(event.tab.textLabel);

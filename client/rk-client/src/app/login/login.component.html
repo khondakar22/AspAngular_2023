@@ -1,10 +1,10 @@
 <div *ngIf="!(currentUser$ | async)" class="container">
   <mat-card class="example-card">
-    
+
       <mat-card-content  >
         <mat-tab-group mat-stretch-tabs="false" (selectedTabChange)="onTabChange($event)" mat-align-tabs="center">
           <mat-tab  label="Login" >
-           
+
             <form [formGroup]="loginForm"  #myLoginForm="ngForm"  (ngSubmit)="onLogin()">
                 <div class="login-form">
                     <mat-form-field appearance="outline">
@@ -33,11 +33,11 @@
                     </mat-form-field>
                 </div>
             </form>
-            
-        
+
+
           </mat-tab>
           <mat-tab label="Register">
-            <form [formGroup]="registrationForm" #myRegistrationForm="ngForm" (ngSubmit)="onRegistration()"> 
+            <form [formGroup]="registrationForm" #myRegistrationForm="ngForm" (ngSubmit)="onRegistration()">
                 <div class="login-form">
                     <mat-form-field appearance="outline">
                         <mat-label>Enter your username</mat-label>
@@ -47,6 +47,9 @@
                         formControlName="username"
                         required
                         />
+                        <mat-error  *ngIf="registrationForm.get('username')?.hasError('required')">
+                          Please enter a valid username
+                        </mat-error>
                     </mat-form-field>
                     <mat-form-field appearance="outline">
                         <mat-label>Enter your First Name</mat-label>
@@ -74,6 +77,10 @@
                         formControlName="email"
                         required
                         />
+
+                        <mat-error  *ngIf="registrationForm.get('email')?.hasError('required')">
+                          Please enter a valid email
+                        </mat-error>
                     </mat-form-field>
                     <mat-form-field appearance="fill">
                         <mat-label>Select</mat-label>
@@ -83,7 +90,7 @@
                           <mat-option value="2">Third</mat-option>
                         </mat-select>
                       </mat-form-field>
-                    
+
                     <mat-form-field appearance="outline">
                         <mat-label>Enter your password</mat-label>
                         <input formControlName="password" required matInput [type]="hide ? 'password' : 'text'" />
@@ -98,10 +105,20 @@
                             hide ? "visibility_off" : "visibility"
                         }}</mat-icon>
                     </a>
+
+                    <mat-error  *ngIf="registrationForm.get('password')?.hasError('required')">
+                      Please enter a  password
+                    </mat-error>
+                    <mat-error  *ngIf="registrationForm.get('password')?.hasError('minlength')">
+                      Please enter minimum 4 lenght
+                    </mat-error>
+                    <mat-error  *ngIf="registrationForm.get('password')?.hasError('maxlength')">
+                      Please enter maximum 8 lenght
+                    </mat-error>
                     </mat-form-field>
                     <mat-form-field appearance="outline">
                         <mat-label>Confirm Password</mat-label>
-                        <input formControlName="confirmpassword" required matInput [type]="hide ? 'password' : 'text'" />
+                        <input formControlName="confirmpPassword" required matInput [type]="hide ? 'password' : 'text'" />
                         <a
                         mat-icon-button
                         matSuffix
@@ -113,10 +130,16 @@
                             hide ? "visibility_off" : "visibility"
                         }}</mat-icon>
                     </a>
+                    <mat-error  *ngIf="registrationForm.get('confirmpPassword')?.hasError('required')">
+                      Please enter confirm  password
+                    </mat-error>
+                    <mat-error  *ngIf="registrationForm.get('confirmpPassword')?.hasError('notMatching')">
+                      Please  retype exact password
+                    </mat-error>
                     </mat-form-field>
                 </div>
             </form>
-         
+
           </mat-tab>
         </mat-tab-group>
       </mat-card-content>
@@ -129,6 +152,6 @@
             Save
           </button>
       </mat-card-actions>
-  
+
   </mat-card>
 </div>

@@ -10,7 +10,7 @@ namespace Rk.Webapi.Dto
         [StringLength(8, MinimumLength =4)]
         public string Password { get; set; }
 
-        public string Confirmpassword { get; set; }
+        public string ConfirmPassword { get; set; }
 
         public string Firstname { get; set; }
 

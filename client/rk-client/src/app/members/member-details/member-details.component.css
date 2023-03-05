@@ -33,7 +33,7 @@
   height: 700px;
 
 }
-::ng-deep .mat-mdc-tab .mdc-tab__text-label {
+.example-stretched-tabs ::ng-deep .mat-mdc-tab .mdc-tab__text-label {
   color: rgba(0,0,0,.87) !important;
   padding: 10px;
 }
