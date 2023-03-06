@@ -1,8 +1,16 @@
 <div class="container mt-3">
-  <div class="row">
-    <div class="col-md-2" *ngFor="let member of members$ | async">
+  <div class="row" *ngIf="members">
+    <div class="col-md-2" *ngFor="let member of members">
       <app-member-card [member]="member"></app-member-card>
     </div>
+  </div>
+  <div class="row d-flex justify-content-center" *ngIf="pagination">
+    <mat-paginator [length]="pagination.totalItems"
+              [pageSize]="pagination.itemsPerPage"
+              [pageSizeOptions]="[5, 10, 25, 100]"
+              (page)="pageChanged($event)"
+              aria-label="Select page">
+    </mat-paginator>
   </div>
 </div>
 

@@ -2,16 +2,16 @@
 {
     public class PaginationHeader
     {
-        public PaginationHeader(int currentPage, int totalItems, int itemsPerPage, int totalCount)
+        public PaginationHeader(int currentPage, int itemsPerPage, int totalItems, int totalPages)
         {
             CurrentPage = currentPage;
-            TotalItems = totalItems;
             ItemsPerPage = itemsPerPage;
-            TotalCount = totalCount;
+            TotalItems = totalItems;
+            TotalPages = totalPages;
         }
         public int CurrentPage { get; set; }
-        public int TotalItems { get; set; }
         public int ItemsPerPage { get; set; }
-        public int TotalCount { get; set; }
+        public int TotalItems { get; set; }
+        public int TotalPages { get; set; }
     }
 }

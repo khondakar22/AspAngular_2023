@@ -17,6 +17,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
+import {MatPaginatorModule} from '@angular/material/paginator';
 @NgModule({
   declarations: [],
   imports: [
@@ -37,7 +38,8 @@ import {MatNativeDateModule} from '@angular/material/core';
     FileUploadModule,
     MatRadioModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatPaginatorModule
   ],
   exports: [
     MatToolbarModule,
@@ -56,7 +58,8 @@ import {MatNativeDateModule} from '@angular/material/core';
     FileUploadModule,
     MatRadioModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatPaginatorModule
   ],
 })
 export class SharedModule {}
