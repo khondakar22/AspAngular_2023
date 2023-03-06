@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { Member } from 'src/app/_models/member';
 import { Pagination } from 'src/app/_models/pagination';
+import { User } from 'src/app/_models/user';
+import { UserParams } from 'src/app/_models/userParams';
+import { AccountService } from 'src/app/_services/account.service';
 import { MembersService } from 'src/app/_services/members.service';
 
 @Component({
@@ -13,20 +16,30 @@ export class MemberListComponent implements OnInit {
   // members$: Observable<Member[]> | undefined;
   members: Member[] = [];
   pagination: Pagination | undefined;
-  pageNumber = 1;
-  pageSize = 6;
-  pageIndex = 0;
+  userParams: UserParams | undefined;
+  user: User | undefined;
   /**
    *
    */
-  constructor(private memberService: MembersService) {}
+  constructor(private memberService: MembersService, private accountService: AccountService) {
+    this.accountService.currentUser$.pipe(take(1)).subscribe({
+      next: res => {
+        if(res) {
+          console.log("🚀 ~ file: member-list.component.ts:28 ~ MemberListComponent ~ this.accountService.currentUser$.pipe ~ res:", res)
+          this.userParams = new UserParams(res);
+          this.user = res;
+        }
+      }
+    })
+  }
 
   ngOnInit(): void {
     // this.members$ = this.memberService.getMembers();
     this.loadMembers();
   }
   loadMembers() {
-    this.memberService.getMembers(this.pageNumber, this.pageSize).subscribe({
+    if(!this.userParams) return;
+    this.memberService.getMembers(this.userParams).subscribe({
       next: (res) => {
         if (res.result && res.pagiantion) {
           this.members = res.result;
@@ -37,8 +50,11 @@ export class MemberListComponent implements OnInit {
   }
 
   pageChanged(event: any) {
-    this.pageNumber = event.pageIndex + 1;
-    this.pageSize = event.pageSize;
-    this.loadMembers();
+    if(this.userParams) {
+      this.userParams.pageNumber = event.pageIndex + 1;
+      this.userParams.pageSize = event.pageSize;
+      this.loadMembers();
+    }
+
   }
 }
