@@ -41,6 +41,7 @@ namespace Rk.Webapi.Data
 
         public async Task<AppUser> GetUserByNameAsync(string name)
         {
+           
             if (name == null) throw new ArgumentNullException(nameof(name));
             return await _context.Users.Include(p => p.Photos)
                 .FirstOrDefaultAsync(x => !string.IsNullOrEmpty(x.UserName) && x.UserName.ToLower() == name.ToLower());
@@ -48,9 +49,16 @@ namespace Rk.Webapi.Data
 
         public async Task<PagedList<MemberDto>> GetMembersAsync(UserParams userParams)
         {
-            var query= _context.Users
-                .ProjectTo<MemberDto>(_mapper.ConfigurationProvider).AsNoTracking();
-            return await PagedList<MemberDto>.CreateAsync(query, userParams.PageNumber, userParams.PageSize);
+            var query = _context.Users.AsQueryable();
+            query = query.Where(u => u.UserName != userParams.CurrentUsername);
+            query = query.Where(u => u.Gender == userParams.Gender);
+            var minDob = DateTime.Today.AddYears(-userParams.MaxAge - 1);
+            var maxDob = DateTime.Today.AddYears(-userParams.MinAge);
+            query = query.Where(x => x.DateOfBirth >= minDob && x.DateOfBirth <= maxDob);
+            
+            // var query= _context.Users
+            //    .ProjectTo<MemberDto>(_mapper.ConfigurationProvider).AsNoTracking();
+            return await PagedList<MemberDto>.CreateAsync(query.AsNoTracking().ProjectTo<MemberDto>(_mapper.ConfigurationProvider), userParams.PageNumber, userParams.PageSize);
 
         }
 
