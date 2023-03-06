@@ -5,6 +5,7 @@ using Rk.Webapi.Interfaces;
 using System.Xml.Linq;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Rk.Webapi.Helpers;
 
 namespace Rk.Webapi.Data
 {
@@ -45,9 +46,12 @@ namespace Rk.Webapi.Data
                 .FirstOrDefaultAsync(x => !string.IsNullOrEmpty(x.UserName) && x.UserName.ToLower() == name.ToLower());
         }
 
-        public async Task<IEnumerable<MemberDto>> GetMembersAsync()
+        public async Task<PagedList<MemberDto>> GetMembersAsync(UserParams userParams)
         {
-            return await _context.Users.ProjectTo<MemberDto>(_mapper.ConfigurationProvider).ToListAsync();
+            var query= _context.Users
+                .ProjectTo<MemberDto>(_mapper.ConfigurationProvider).AsNoTracking();
+            return await PagedList<MemberDto>.CreateAsync(query, userParams.PageNumber, userParams.PageSize);
+
         }
 
         public async Task<MemberDto> GetMemberAsync(string userName)

@@ -1,5 +1,6 @@
 ﻿using Rk.Webapi.Dto;
 using Rk.Webapi.Entities;
+using Rk.Webapi.Helpers;
 
 namespace Rk.Webapi.Interfaces
 {
@@ -11,7 +12,7 @@ namespace Rk.Webapi.Interfaces
         Task<AppUser> GetUserByIdAsync(int id);
         Task<AppUser> GetUserByNameAsync(string name);
 
-        Task<IEnumerable<MemberDto>> GetMembersAsync();
+        Task<PagedList<MemberDto>> GetMembersAsync(UserParams userParams);
 
         Task<MemberDto> GetMemberAsync(string userName);
     }
