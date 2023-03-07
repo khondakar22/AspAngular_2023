@@ -57,6 +57,11 @@ export class MemberListComponent implements OnInit {
     }
 
   }
+  loadActiveMember(orderBy: string) {
+    if(!this.userParams) return;
+    this.userParams.orderBy = orderBy
+    this.loadMembers();
+  }
 
   resetFilters(){
     if(this.user) {

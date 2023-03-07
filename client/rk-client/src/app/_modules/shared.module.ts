@@ -18,6 +18,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { TimeagoModule } from 'ngx-timeago';
 @NgModule({
   declarations: [],
   imports: [
@@ -39,7 +40,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatRadioModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    TimeagoModule.forRoot()
   ],
   exports: [
     MatToolbarModule,
@@ -59,7 +61,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatRadioModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    TimeagoModule
   ],
 })
 export class SharedModule {}

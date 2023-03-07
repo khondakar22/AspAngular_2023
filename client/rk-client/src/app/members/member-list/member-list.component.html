@@ -39,8 +39,9 @@
 
     <div class="col">
       <div class="btn-group float-end">
-        <button mat-raised-button class="mx-2">Last Active</button>
-        <button mat-raised-button color="accent">New Members</button>
+        <button mat-raised-button  (click)="loadActiveMember('lastActive')"
+         class="mx-2">Last Active</button>
+        <button mat-raised-button color="accent" (click)="loadActiveMember('created')">New Members</button>
       </div>
 
     </div>
