@@ -17,20 +17,20 @@ export class MemberListComponent implements OnInit {
   members: Member[] = [];
   pagination: Pagination | undefined;
   userParams: UserParams | undefined;
-  user: User | undefined;
   genderList = [{value: 'male', dispaly: 'Males'}, {value: 'female', dispaly: 'Females'} ]
   /**
    *
    */
-  constructor(private memberService: MembersService, private accountService: AccountService) {
-    this.accountService.currentUser$.pipe(take(1)).subscribe({
-      next: res => {
-        if(res) {
-          this.userParams = new UserParams(res);
-          this.user = res;
-        }
-      }
-    })
+  constructor(private memberService: MembersService) {
+    // this.accountService.currentUser$.pipe(take(1)).subscribe({
+    //   next: res => {
+    //     if(res) {
+    //       this.userParams = new UserParams(res);
+    //       this.user = res;
+    //     }
+    //   }
+    // })
+    this.userParams = this.memberService.getUserParams();
   }
 
   ngOnInit(): void {
@@ -38,21 +38,24 @@ export class MemberListComponent implements OnInit {
     this.loadMembers();
   }
   loadMembers() {
-    if(!this.userParams) return;
-    this.memberService.getMembers(this.userParams).subscribe({
-      next: (res) => {
-        if (res.result && res.pagiantion) {
-          this.members = res.result;
-          this.pagination = res.pagiantion;
-        }
-      },
-    });
+    if(this.userParams) {
+      this.memberService.setUserParams(this.userParams);
+      this.memberService.getMembers(this.userParams).subscribe({
+        next: (res) => {
+          if (res.result && res.pagiantion) {
+            this.members = res.result;
+            this.pagination = res.pagiantion;
+          }
+        },
+      });
+    }
   }
 
   pageChanged(event: any) {
     if(this.userParams) {
       this.userParams.pageNumber = event.pageIndex + 1;
       this.userParams.pageSize = event.pageSize;
+      this.memberService.setUserParams(this.userParams);
       this.loadMembers();
     }
 
@@ -64,9 +67,7 @@ export class MemberListComponent implements OnInit {
   }
 
   resetFilters(){
-    if(this.user) {
-      this.userParams = new UserParams(this.user);
+      this.userParams = this.memberService.resetUserParams();
       this.loadMembers;
-    }
   }
 }
