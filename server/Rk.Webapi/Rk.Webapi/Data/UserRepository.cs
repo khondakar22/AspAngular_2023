@@ -55,6 +55,11 @@ namespace Rk.Webapi.Data
             var minDob = DateTime.Today.AddYears(-userParams.MaxAge - 1);
             var maxDob = DateTime.Today.AddYears(-userParams.MinAge);
             query = query.Where(x => x.DateOfBirth >= minDob && x.DateOfBirth <= maxDob);
+            query = userParams.Order switch
+            {
+                "created" => query.OrderByDescending(u => u.Created),
+                _ => query.OrderByDescending(u => u.LastActive)
+            };
             
             // var query= _context.Users
             //    .ProjectTo<MemberDto>(_mapper.ConfigurationProvider).AsNoTracking();
