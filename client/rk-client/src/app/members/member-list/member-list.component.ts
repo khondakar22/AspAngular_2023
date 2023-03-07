@@ -18,6 +18,7 @@ export class MemberListComponent implements OnInit {
   pagination: Pagination | undefined;
   userParams: UserParams | undefined;
   user: User | undefined;
+  genderList = [{value: 'male', dispaly: 'Males'}, {value: 'female', dispaly: 'Females'} ]
   /**
    *
    */
@@ -25,7 +26,6 @@ export class MemberListComponent implements OnInit {
     this.accountService.currentUser$.pipe(take(1)).subscribe({
       next: res => {
         if(res) {
-          console.log("🚀 ~ file: member-list.component.ts:28 ~ MemberListComponent ~ this.accountService.currentUser$.pipe ~ res:", res)
           this.userParams = new UserParams(res);
           this.user = res;
         }
@@ -56,5 +56,12 @@ export class MemberListComponent implements OnInit {
       this.loadMembers();
     }
 
+  }
+
+  resetFilters(){
+    if(this.user) {
+      this.userParams = new UserParams(this.user);
+      this.loadMembers;
+    }
   }
 }
