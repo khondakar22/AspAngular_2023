@@ -7,6 +7,16 @@
 </div>
 
 <div class="container mt-3" *ngIf="userParams">
+  <!-- <div class="row">
+    <div class="col-9">
+
+
+    </div>
+    <div class="col-3 ml-auto ">
+      <button mat-raised-button class="mx-2">Last Active</button>
+      <button mat-raised-button color="accent">New Members</button>
+    </div>
+  </div> -->
   <form #form="ngForm" class="d-flex mb-3" (ngSubmit)="loadMembers()" autocomplete="off">
     <div class="d-flex mx-2">
       <label  class="col-form-label"> Age from:</label>
@@ -26,6 +36,14 @@
     </div>
     <button mat-raised-button color="primary" type="submit" class="mx-1">Apply Filters</button>
     <button mat-raised-button color="warn" (click)="resetFilters()" >Reset Filters</button>
+
+    <div class="col">
+      <div class="btn-group float-end">
+        <button mat-raised-button class="mx-2">Last Active</button>
+        <button mat-raised-button color="accent">New Members</button>
+      </div>
+
+    </div>
   </form>
 </div>
 
