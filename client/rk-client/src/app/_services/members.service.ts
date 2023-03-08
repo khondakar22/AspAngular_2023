@@ -92,8 +92,12 @@ userParams: UserParams | undefined;
     return this.http.post(this.baseUrl + 'likes/' + username, {});
   }
 
-  getLikes(predicate: string ){
-    return this.http.get(this.baseUrl + 'likes?predicate=' + predicate );
+  getLikes(predicate: string, pageNumber: number, pageSize: number ){
+    let params = this.gePaginationHeader(pageNumber, pageSize);
+    params = params.append('predicate', predicate);
+
+    return this.getPaginatedResult<Member[]>( this.baseUrl + 'likes', params);
+    // return this.http.get<Member[]>(this.baseUrl + 'likes?predicate=' + predicate );
   }
 
   private getPaginatedResult<T>(url: string, params: HttpParams) {

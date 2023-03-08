@@ -2,6 +2,7 @@
 using Rk.Webapi.Dto;
 using Rk.Webapi.Entities;
 using Rk.Webapi.Extensions;
+using Rk.Webapi.Helpers;
 using Rk.Webapi.Interfaces;
 
 namespace Rk.Webapi.Data
@@ -26,22 +27,22 @@ namespace Rk.Webapi.Data
                 .FirstOrDefaultAsync(x => x.Id == userId);
         }
 
-        public async Task<IEnumerable<LikeDto>> GetUserLikes(string predicate, int userId)
+        public async Task<PagedList<LikeDto>> GetUserLikes(LikesParams likesParams)
         {
             var users = _context.Users.OrderBy(u => u.UserName).AsQueryable();
             var likes = _context.Likes.AsQueryable();
-            if (predicate == "liked")
+            if (likesParams.Predicate == "liked")
             {
-                likes = likes.Where(x => x.SourceUserId == userId);
+                likes = likes.Where(x => x.SourceUserId == likesParams.UserId);
                 users = likes.Select(x => x.TargetUser);
             }
-            if (predicate == "likedBy")
+            if (likesParams.Predicate == "likedBy")
             {
-                likes = likes.Where(x => x.TargetUserId == userId);
+                likes = likes.Where(x => x.TargetUserId == likesParams.UserId);
                 users = likes.Select(x => x.SourceUser);
             }
 
-            return await users.Select(user => new LikeDto
+            var likesUsers = users.Select(user => new LikeDto
             {
                 Id = user.Id,
                 UserName = user.UserName,
@@ -49,7 +50,8 @@ namespace Rk.Webapi.Data
                 Age = user.DateOfBirth.CalculateAge(),
                 PhotoUrl = user.Photos.FirstOrDefault(x => x.IsMain).Url,
                 City = user.City
-            }).ToListAsync();
+            });
+            return await PagedList<LikeDto>.CreateAsync(likesUsers, likesParams.PageNumber, likesParams.PageSize);
         }
     }
 }

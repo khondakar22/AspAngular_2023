@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Rk.Webapi.Dto;
 using Rk.Webapi.Entities;
 using Rk.Webapi.Extensions;
+using Rk.Webapi.Helpers;
 using Rk.Webapi.Interfaces;
 
 namespace Rk.Webapi.Controllers
@@ -22,7 +23,7 @@ namespace Rk.Webapi.Controllers
         [HttpPost("{username}")]
         public async Task<ActionResult> AddLike(string username)
         {
-            var sourceUserId = Convert.ToInt32(User.GetUserId());
+            var sourceUserId = User.GetUserId();
 
             var likedUser = await _userRepository.GetUserByNameAsync(username);
             var sourceUser = await _likesRepository.GetUserWithLikes(sourceUserId);
@@ -42,10 +43,11 @@ namespace Rk.Webapi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<LikeDto>>> GetUserLikes(string predicate)
+        public async Task<ActionResult<PagedList<LikeDto>>> GetUserLikes([FromQuery] LikesParams likesParams)
         {
-
-            var users = await _likesRepository.GetUserLikes(predicate,Convert.ToInt32(User.GetUserId()));
+            likesParams.UserId = User.GetUserId();
+            var users = await _likesRepository.GetUserLikes(likesParams);
+            Response.AddPaginationHeader(new PaginationHeader(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages));
             return Ok(users);
         }
     }
