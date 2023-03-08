@@ -1,0 +1,25 @@
+.icon-display {
+  transform: scale(2);
+}
+button:hover {
+  color: darkcyan;
+}
+table {
+  width: 100%;;
+padding: 15px;
+
+}
+.img-circle{
+  max-height: 50px;
+}
+.mdc-data-table__cell {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  cursor: pointer;
+}
+/* .mdc-data-table__header-cell {
+  color: black !important;
+}
+.mdc-data-table__cell {
+  color: black !important;
+} */

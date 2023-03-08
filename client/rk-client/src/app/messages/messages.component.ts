@@ -1,28 +1,44 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, AfterViewInit, OnInit, ViewChild } from '@angular/core';
 import { Messages } from '../_models/message';
 import { Pagination } from '../_models/pagination';
 import { MessagesService } from '../_services/messages.service';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-messages',
   templateUrl: './messages.component.html',
   styleUrls: ['./messages.component.css']
 })
-export class MessagesComponent implements OnInit {
+export class MessagesComponent implements OnInit, AfterViewInit  {
+  displayedColumns: string[] = ['messages', 'fromTo', 'sentReceived', 'action'];
+  dataSource: MatTableDataSource<Messages> ;
+
+  @ViewChild(MatPaginator) paginator?: MatPaginator ;
   messages?: Messages[];
   pagination?: Pagination;
   container = 'Unread';
   pageNumber =1;
   pageSize = 5;
-  constructor(private messageService: MessagesService){}
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
+  constructor(private messageService: MessagesService, private router: Router){
+    this.dataSource = new MatTableDataSource<Messages>();
   }
-
-  loadMessages() {
+  ngOnInit(): void {
+  }
+  ngAfterViewInit() {
+    if(this.paginator){
+      this.dataSource.paginator = this.paginator;
+    }
+  }
+  loadMessages(container: string) {
+    this.container = container;
     this.messageService.getMessages(this.pageNumber, this.pageSize, this.container).subscribe({
       next: respose => {
         this.messages = respose.result;
+        if(this.dataSource) {
+          this.dataSource = new MatTableDataSource<Messages>(respose.result);
+        }
         this.pagination = respose.pagiantion;
       }
     })
@@ -32,8 +48,19 @@ export class MessagesComponent implements OnInit {
 
       this.pageNumber = event.pageIndex + 1;
       this.pageSize = event.pageSize;
-      this.loadMessages();
+      this.loadMessages(this.container);
 
+  }
+
+  navigate(row:Messages, $event:any) {
+    console.log("🚀 ~ file: messages.component.ts:56 ~ MessagesComponent ~ navigate ~ row:", row)
+    let username = ''
+    if(this.container ==='Outbox') {
+      username = row.recipientUsername;
+    } else {
+      username = row.senderUsername;
+    }
+    this.router.navigateByUrl('/members/'+ username);
   }
 
 }

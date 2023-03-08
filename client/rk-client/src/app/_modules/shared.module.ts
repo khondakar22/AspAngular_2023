@@ -19,6 +19,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { TimeagoModule } from 'ngx-timeago';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatTableModule} from '@angular/material/table';
 @NgModule({
   declarations: [],
   imports: [
@@ -41,7 +43,9 @@ import { TimeagoModule } from 'ngx-timeago';
     MatDatepickerModule,
     MatNativeDateModule,
     MatPaginatorModule,
-    TimeagoModule.forRoot()
+    TimeagoModule.forRoot(),
+    MatTooltipModule,
+    MatTableModule
   ],
   exports: [
     MatToolbarModule,
@@ -62,7 +66,9 @@ import { TimeagoModule } from 'ngx-timeago';
     MatDatepickerModule,
     MatNativeDateModule,
     MatPaginatorModule,
-    TimeagoModule
+    TimeagoModule,
+    MatTooltipModule,
+    MatTableModule
   ],
 })
 export class SharedModule {}
