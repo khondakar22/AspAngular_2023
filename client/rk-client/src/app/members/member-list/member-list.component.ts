@@ -58,7 +58,6 @@ export class MemberListComponent implements OnInit {
       this.memberService.setUserParams(this.userParams);
       this.loadMembers();
     }
-
   }
   loadActiveMember(orderBy: string) {
     if(!this.userParams) return;
