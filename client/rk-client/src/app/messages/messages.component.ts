@@ -53,7 +53,6 @@ export class MessagesComponent implements OnInit, AfterViewInit  {
   }
 
   navigate(row:Messages, $event:any) {
-    console.log("🚀 ~ file: messages.component.ts:56 ~ MessagesComponent ~ navigate ~ row:", row)
     let username = ''
     if(this.container ==='Outbox') {
       username = row.recipientUsername;

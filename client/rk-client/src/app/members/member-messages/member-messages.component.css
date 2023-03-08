@@ -1,0 +1,30 @@
+.card {
+  border: none;
+}
+.chat {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.chat-body{
+  align-items: center;
+}
+
+.chat li {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px dotted #B3A9A9;
+}
+.rounded-circle {
+  max-height: 50px;
+}
+.text-muted{
+  align-items: center;
+align-content: space-between;
+}
+.text-muted > span {
+  margin-right: 5px;
+}
+.text-muted > mat-icon {
+  margin-right: 5px;
+}
