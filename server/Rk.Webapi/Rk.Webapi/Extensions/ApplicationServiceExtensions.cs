@@ -20,6 +20,7 @@ namespace Rk.Webapi.Extensions
             // Add Services
             service.AddScoped<ITokenService, TokenService>();
             service.AddScoped<IUserRepository, UserRepository>();
+            service.AddScoped<IMessageRepository, MessageRepository>();
             service.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             service.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
             service.AddScoped<IPhotoService, PhotoService>();
