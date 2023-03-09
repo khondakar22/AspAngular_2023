@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTab, MatTabGroup } from '@angular/material/tabs';
 import { ActivatedRoute } from '@angular/router';
 import { NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { NgxGalleryImage } from '@kolkov/ngx-gallery';
@@ -18,6 +19,8 @@ export class MemberDetailsComponent implements OnInit {
   galleryOptions: NgxGalleryOptions[] = [];
   galleryImages: NgxGalleryImage[] = [];
   messages: Messages[] = [];
+
+  @ViewChild("myMessageTab", { static: false }) myMessageTab: MatTabGroup | undefined;
   constructor(private memberService: MembersService,
     private route: ActivatedRoute,
     private messageService: MessagesService){}
@@ -60,6 +63,18 @@ export class MemberDetailsComponent implements OnInit {
     if($event.tab.textLabel === 'Messages') {
       this.loadMessagesThreads()
     }
+  }
+
+  goMessage(tabTitle: string) {
+    const tabGroup = this.myMessageTab;
+    if (!tabGroup || !(tabGroup instanceof MatTabGroup)) return;
+    tabGroup._tabs['_results'].forEach((element: MatTab) => {
+      console.log("🚀 ~ file: member-details.component.ts:72 ~ MemberDetailsComponent ~ header ~ element:", element.textLabel)
+      if(element.textLabel === tabTitle) {
+        if (this.myMessageTab)this.myMessageTab.selectedIndex = element.position;
+      }
+    });
+
   }
 
   loadMessagesThreads(){

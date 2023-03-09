@@ -28,13 +28,13 @@
         <div class="card-footer">
           <div class="example-btn">
             <button mat-raised-button color="primary">Like</button>
-            <button mat-raised-button color="accent">Messages</button>
+            <button mat-raised-button color="accent" (click)="goMessage('Messages')">Messages</button>
           </div>
         </div>
       </div>
     </div>
     <div class="col-8">
-      <mat-tab-group mat-stretch-tabs [selectedIndex]="2" (selectedTabChange)="onTabChange($event)" class="example-stretched-tabs mat-elevation-z4">
+      <mat-tab-group #myMessageTab mat-stretch-tabs (selectedTabChange)="onTabChange($event)" class="example-stretched-tabs mat-elevation-z4">
         <mat-tab label="About {{member.knownAs}}">
           <div class="m-3">
             <h4  > Description </h4>
