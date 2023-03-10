@@ -24,7 +24,7 @@
       </button>
     </li>
     <li class="list-inline-item">
-      <button mat-mini-fab color="primary">
+      <button routerLink="/members/{{member.userName}}" [queryParams]="{tab: 'Messages'}" mat-mini-fab color="primary">
         <mat-icon>message</mat-icon>
       </button>
     </li>

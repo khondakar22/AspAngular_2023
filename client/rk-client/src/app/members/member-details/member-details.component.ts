@@ -12,79 +12,103 @@ import { MessagesService } from 'src/app/_services/messages.service';
 @Component({
   selector: 'app-member-details',
   templateUrl: './member-details.component.html',
-  styleUrls: ['./member-details.component.css']
+  styleUrls: ['./member-details.component.css'],
 })
 export class MemberDetailsComponent implements OnInit {
-  member: Member | undefined;
+  member: Member = {} as Member;
   galleryOptions: NgxGalleryOptions[] = [];
   galleryImages: NgxGalleryImage[] = [];
   messages: Messages[] = [];
 
-  @ViewChild("myMessageTab", { static: false }) myMessageTab: MatTabGroup | undefined;
-  constructor(private memberService: MembersService,
+  @ViewChild('myMessageTab', { static: true }) myMessageTab = {} as MatTabGroup;
+  constructor(
+    private memberService: MembersService,
     private route: ActivatedRoute,
-    private messageService: MessagesService){}
+    private messageService: MessagesService
+  ) {}
   ngOnInit(): void {
-    this.loadMember();
-    this.galleryOptions = [{
-      width: '500px',
-      height: '500px',
-      imagePercent:100,
-      thumbnailsColumns: 4,
-      imageAnimation: NgxGalleryAnimation.Slide,
-      preview: false
-    }]
+    // this.loadMember();
+    this.route.data.subscribe({
+      next: (res) => {
+        this.member = res['member'];
+      },
+    });
+
+    this.route.queryParams.subscribe({
+      next: (params) => {
+        if (params['tab']) {
+          this.goMessage(params['tab'], true);
+        }
+      },
+    });
+    this.galleryOptions = [
+      {
+        width: '500px',
+        height: '500px',
+        imagePercent: 100,
+        thumbnailsColumns: 4,
+        imageAnimation: NgxGalleryAnimation.Slide,
+        preview: false,
+      },
+    ];
+    this.galleryImages = this.getImages();
   }
-  getImages(){
-    if(!this.member) return [];
+  getImages() {
+    if (!this.member) return [];
     const imageUrls = [];
-    for(const photo of this.member.photos ) {
+    for (const photo of this.member.photos) {
       imageUrls.push({
         small: photo.url,
         medium: photo.url,
-        big: photo.url
-      })
+        big: photo.url,
+      });
     }
     return imageUrls;
   }
 
-  loadMember(){
-    const username = this.route.snapshot.paramMap.get('userName');
-    if(!username) return;
-    this.memberService.getMember(username).subscribe({
-      next: (res) =>{
-        this.member = res;
-        this.galleryImages = this.getImages();
-      }
-    })
-  }
+  // loadMember(){
+  //   const username = this.route.snapshot.paramMap.get('userName');
+  //   if(!username) return;
+  //   this.memberService.getMember(username).subscribe({
+  //     next: (res) => {
+  //       this.member = res;
+  //       // this.galleryImages = this.getImages();
+  //     }
+  //   })
+  // }
 
   onTabChange($event: any) {
-    if($event.tab.textLabel === 'Messages') {
-      this.loadMessagesThreads()
+    if ($event.tab.textLabel === 'Messages') {
+      this.loadMessagesThreads();
     }
   }
 
-  goMessage(tabTitle: string) {
+  goMessage(tabTitle: string, _loadFromParam = false) {
     const tabGroup = this.myMessageTab;
+
     if (!tabGroup || !(tabGroup instanceof MatTabGroup)) return;
-    tabGroup._tabs['_results'].forEach((element: MatTab) => {
-      console.log("🚀 ~ file: member-details.component.ts:72 ~ MemberDetailsComponent ~ header ~ element:", element.textLabel)
-      if(element.textLabel === tabTitle) {
-        if (this.myMessageTab)this.myMessageTab.selectedIndex = element.position;
+    if (_loadFromParam) {
+      if (this.myMessageTab) {
+        this.myMessageTab.selectedIndex = 4;
+        this.loadMessagesThreads();
       }
-    });
-
-  }
-
-  loadMessagesThreads(){
-    if(this.member?.userName) {
-      this.messageService.getMessagesThread(this.member?.userName).subscribe({
-        next: res => {
-          this.messages = res;
+    } else {
+      tabGroup._tabs['_results'].forEach((element: MatTab) => {
+        if (element.textLabel === tabTitle) {
+          if (this.myMessageTab)
+            this.myMessageTab.selectedIndex = element.position;
         }
-      })
+      });
     }
   }
 
+  loadMessagesThreads() {
+    if (this.member?.userName) {
+      this.messageService.getMessagesThread(this.member?.userName).subscribe({
+        next: (res) => {
+          this.messages = res;
+        },
+      });
+    }
+  }
 }

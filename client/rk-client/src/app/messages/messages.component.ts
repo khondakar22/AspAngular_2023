@@ -4,7 +4,7 @@ import { Pagination } from '../_models/pagination';
 import { MessagesService } from '../_services/messages.service';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'app-messages',
@@ -59,7 +59,10 @@ export class MessagesComponent implements OnInit, AfterViewInit  {
     } else {
       username = row.senderUsername;
     }
-    this.router.navigateByUrl('/members/'+ username);
+    let navigationExtras: NavigationExtras = {
+      queryParams: {tab: 'Messages'}
+    }
+    this.router.navigate(['/members/'+ username], navigationExtras);
   }
 
 }
