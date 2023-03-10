@@ -39,7 +39,7 @@ export class MessagesComponent implements OnInit, AfterViewInit  {
       next: respose => {
         this.messages = respose.result;
         if(this.dataSource) {
-          this.dataSource = new MatTableDataSource<Messages>(respose.result);
+          this.dataSource = new MatTableDataSource<Messages>(this.messages);
         }
         this.pagination = respose.pagiantion;
         this.loading = false;
@@ -69,8 +69,20 @@ export class MessagesComponent implements OnInit, AfterViewInit  {
   }
 
   deleteMessage(id: number) {
+    console.log(this.messages);
+
     this.messageService.deleteMessage(id).subscribe({
-      next: () => this.messages?.splice(this.messages?.findIndex(m => m.id === id), 1)
+      next: () =>{
+        this.dataSource.data?.forEach(element => {
+          console.log(element);
+          if(element.id === id) {
+            if(this.dataSource) {
+              this.dataSource.data.splice(this.dataSource.data.findIndex(x => x === element), 1);
+              this.dataSource = new MatTableDataSource<Messages>(this.dataSource.data);
+            }
+          }
+        })
+      }
     })
   }
 
