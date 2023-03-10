@@ -21,6 +21,7 @@ export class MessagesComponent implements OnInit, AfterViewInit  {
   container = 'Unread';
   pageNumber =1;
   pageSize = 5;
+  loading = false;
   constructor(private messageService: MessagesService, private router: Router){
     this.dataSource = new MatTableDataSource<Messages>();
   }
@@ -32,6 +33,7 @@ export class MessagesComponent implements OnInit, AfterViewInit  {
     }
   }
   loadMessages(container: string) {
+    this.loading = true;
     this.container = container;
     this.messageService.getMessages(this.pageNumber, this.pageSize, this.container).subscribe({
       next: respose => {
@@ -40,6 +42,7 @@ export class MessagesComponent implements OnInit, AfterViewInit  {
           this.dataSource = new MatTableDataSource<Messages>(respose.result);
         }
         this.pagination = respose.pagiantion;
+        this.loading = false;
       }
     })
   }

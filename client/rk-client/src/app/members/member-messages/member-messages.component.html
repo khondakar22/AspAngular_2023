@@ -14,7 +14,7 @@
               <small class="text-muted d-flex">
                 <mat-icon>history</mat-icon>
                 <span>
-                 {{message.messageSent | timeago}}
+                 {{message.messageSent + 'Z' | timeago}}
                 </span>
                   <span class="text-danger" *ngIf="!message.dateRead && message.senderUsername !== username">(unread)</span>
                   <span class="text-success" *ngIf="message.dateRead && message.senderUsername !== username">(read {{ message.dateRead | timeago}})</span>

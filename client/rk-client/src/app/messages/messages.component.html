@@ -20,7 +20,7 @@
   </div>
   <div class="row" *ngIf="messages && messages.length > 0" >
     <div class="mat-elevation-z8">
-      <table color mat-table [dataSource]="dataSource">
+      <table [hidden]="loading" color mat-table [dataSource]="dataSource">
 
         <!-- Message Column -->
         <ng-container matColumnDef="messages">
@@ -60,7 +60,7 @@
       </table>
 
       <ng-container *ngIf="pagination" >
-          <mat-paginator [length]="pagination.totalItems"
+          <mat-paginator *ngIf="!loading" [length]="pagination.totalItems"
           [pageSize]="pagination.itemsPerPage"
           [pageSizeOptions]="[5, 10, 25, 100]"
           (page)="pageChanged($event)"

@@ -40,9 +40,11 @@ namespace Rk.Webapi.Data
                 .AsQueryable();
             query = messageParams.Container switch
             {
-                "Inbox" => query.Where(x => x.RecipientUsername == messageParams.Username),
-                "Outbox" => query.Where(x => x.SenderUsername == messageParams.Username),
-                _ => query.Where(x => x.RecipientUsername == messageParams.Username && x.DateRead == null)
+                "Inbox" => query.Where(
+                    x => x.RecipientUsername == messageParams.Username && x.RecipientDeleted == false),
+                "Outbox" => query.Where(x => x.SenderUsername == messageParams.Username && x.SenderDeleted == false),
+                _ => query.Where(x =>
+                    x.RecipientUsername == messageParams.Username && x.RecipientDeleted == false && x.DateRead == null)
             };
             var messages = query.ProjectTo<MessageDto>(_mapper.ConfigurationProvider);
             return await PagedList<MessageDto>.CreateAsync(messages, messageParams.PageNumber, messageParams.PageSize);
@@ -54,8 +56,8 @@ namespace Rk.Webapi.Data
                 .ThenInclude(x => x.Photos)
                 .Include(x => x.Recipient)
                 .ThenInclude(x => x.Photos)
-                .Where(x => x.RecipientUsername == currentUsername && x.SenderUsername == recipientUsername
-                            || x.RecipientUsername == recipientUsername && x.SenderUsername == currentUsername)
+                .Where(x => x.RecipientUsername == currentUsername && x.RecipientDeleted == false && x.SenderUsername == recipientUsername
+                            || x.RecipientUsername == recipientUsername && x.SenderDeleted == false  && x.SenderUsername == currentUsername)
                 .OrderBy(x => x.MessageSent)
                 .ToListAsync();
             var unreadMessages = messages.Where(x => x.DateRead == null
