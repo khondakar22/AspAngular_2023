@@ -29,12 +29,12 @@
     </ul>
   </div>
   <div class="card-footer ">
-    <form class="d-flex" >
+    <form class="d-flex" #messageForm="ngForm" (ngSubmit)="sendMessage()" autocomplete="off" >
       <div class="input-group">
-        <input type="text" class="form-control input-sm">
+        <input type="text" name="messageContent" [(ngModel)]="messageContent" required class="form-control input-sm">
       </div>
       <div class="input-group-append">
-        <button mat-raised-button color="primary" type="submit">Send</button>
+        <button mat-raised-button color="primary" [disabled]="!messageForm.valid" type="submit">Send</button>
       </div>
     </form>
   </div>

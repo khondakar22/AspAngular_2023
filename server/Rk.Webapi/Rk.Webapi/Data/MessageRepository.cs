@@ -56,7 +56,7 @@ namespace Rk.Webapi.Data
                 .ThenInclude(x => x.Photos)
                 .Where(x => x.RecipientUsername == currentUsername && x.SenderUsername == recipientUsername
                             || x.RecipientUsername == recipientUsername && x.SenderUsername == currentUsername)
-                .OrderByDescending(x => x.MessageSent)
+                .OrderBy(x => x.MessageSent)
                 .ToListAsync();
             var unreadMessages = messages.Where(x => x.DateRead == null
                                                      && x.RecipientUsername == currentUsername).ToList();
