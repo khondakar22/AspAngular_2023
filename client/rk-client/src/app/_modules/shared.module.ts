@@ -14,13 +14,14 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FileUploadModule } from 'ng2-file-upload';
-import {MatRadioModule} from '@angular/material/radio';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatNativeDateModule} from '@angular/material/core';
-import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { TimeagoModule } from 'ngx-timeago';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatTableModule} from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatTableModule } from '@angular/material/table';
+import { MatDialogModule } from '@angular/material/dialog';
 @NgModule({
   declarations: [],
   imports: [
@@ -45,7 +46,8 @@ import {MatTableModule} from '@angular/material/table';
     MatPaginatorModule,
     TimeagoModule.forRoot(),
     MatTooltipModule,
-    MatTableModule
+    MatTableModule,
+    MatDialogModule,
   ],
   exports: [
     MatToolbarModule,
@@ -68,7 +70,8 @@ import {MatTableModule} from '@angular/material/table';
     MatPaginatorModule,
     TimeagoModule,
     MatTooltipModule,
-    MatTableModule
+    MatTableModule,
+    MatDialogModule,
   ],
 })
 export class SharedModule {}

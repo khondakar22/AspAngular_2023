@@ -1,0 +1,20 @@
+<div class="row">
+  <table class="table ms-4">
+    <thead>
+      <tr>
+        <th style="width: 30%;">Username</th>
+        <th style="width: 40%;">Active Roles</th>
+        <th style="width: 30%;"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{user.username}}</td>
+        <td>{{user.roles}}</td>
+        <td><button  mat-raised-button color="primary">
+          Edit Roles
+        </button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

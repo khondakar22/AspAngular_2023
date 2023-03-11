@@ -14,7 +14,7 @@
             <li>
               <a routerLink="/messages" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true }">Messages</a>
             </li>
-            <li>
+            <li *appHasRole="['Admin', 'Moderator']">
               <a routerLink="/admin" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true }">Admin</a>
             </li>
           </ng-container>
