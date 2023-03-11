@@ -26,7 +26,7 @@ namespace Rk.Webapi.Controllers
             _mapper = mapper;
             _photoService = photoService;
         }
-      
+
         [HttpGet]
         public async Task<ActionResult<PagedList<MemberDto>>> GetUsers([FromQuery] UserParams userParams)
         {
@@ -43,13 +43,12 @@ namespace Rk.Webapi.Controllers
             return Ok(users);
         }
 
-        
+
         //[HttpGet("{id}")]
         //public async Task<ActionResult<AppUser>> GetUser(int id)
         //{
         //    return Ok(await _userRepository.GetUserByIdAsync(id));
         //}
-
         [HttpGet("{name}")]
         public async Task<ActionResult<MemberDto>> GetUserName(string name)
         {

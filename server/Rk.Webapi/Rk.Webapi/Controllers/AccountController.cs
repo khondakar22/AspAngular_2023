@@ -1,6 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Rk.Webapi.Data;
@@ -12,13 +13,13 @@ namespace Rk.Webapi.Controllers
 {
     public class AccountController : BaseApiController
     {
-        private readonly DataContext _context;
+        private readonly UserManager<AppUser> _userManager;
         private readonly ITokenService _tokenService;
         private readonly IMapper _mapper;
 
-        public AccountController(DataContext context, ITokenService tokenService, IMapper mapper) 
+        public AccountController(UserManager<AppUser> userManager, ITokenService tokenService, IMapper mapper) 
         {
-            _context = context;
+            _userManager = userManager;
             _tokenService = tokenService;
             _mapper = mapper;
         }
@@ -28,13 +29,19 @@ namespace Rk.Webapi.Controllers
         {
             if (await UserExists(registerDto.Username)) return BadRequest("Username is taken");
             var user = _mapper.Map<AppUser>(registerDto);
+            user.UserName = registerDto.Username.ToLower();
 
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
+            var result = await _userManager.CreateAsync(user, registerDto.Password);
+
+            if (!result.Succeeded) return BadRequest(result.Errors);
+
+            var roleResult = await _userManager.AddToRoleAsync(user, "Member");
+            if (!roleResult.Succeeded) return BadRequest(roleResult.Errors);
+
             var userWithToen = new UserDto
             {
                 Username = user.UserName,
-                Token = _tokenService.CrateToken(user),
+                Token = await _tokenService.CrateToken(user),
                 KnownAs = user.KnownAs,
                 Gender = user.Gender
                 
@@ -44,15 +51,17 @@ namespace Rk.Webapi.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
-            var user = await _context.Users.Include(x => x.Photos)
+            var user = await _userManager.Users.Include(x => x.Photos)
                 .SingleOrDefaultAsync(x => x.UserName.ToLower() == loginDto.Username.ToLower());
 
 
             if (user == null) return Unauthorized("Invalid Username");
+            var result = await _userManager.CheckPasswordAsync(user, loginDto.Password);
+            if (!result) return Unauthorized("Invalid Password");
             var userWithToen = new UserDto
             {
                 Username = user.UserName,
-                Token = _tokenService.CrateToken(user),
+                Token = await _tokenService.CrateToken(user),
                 PhotoUrl = user.Photos.FirstOrDefault(x => x.IsMain)?.Url,
                 KnownAs = user.KnownAs,
                 Gender = user.Gender
@@ -62,7 +71,7 @@ namespace Rk.Webapi.Controllers
 
         private async Task<bool> UserExists(string username)
         {
-            return await _context.Users.AnyAsync(x => x.UserName.ToLower() == username.ToLower());
+            return await _userManager.Users.AnyAsync(x => x.UserName.ToLower() == username.ToLower());
         }
     }
 }

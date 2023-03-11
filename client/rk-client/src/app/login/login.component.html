@@ -40,9 +40,9 @@
             <form [formGroup]="registrationForm" #myRegistrationForm="ngForm" (ngSubmit)="onRegistration()">
                 <div class="login-form">
                   <mat-radio-group aria-label="Select an option" formControlName="gender">
-                    <mat-radio-button value="1">Male</mat-radio-button>
-                    <mat-radio-button value="0">Female</mat-radio-button>
-                    <mat-radio-button value="2">Third</mat-radio-button>
+                    <mat-radio-button value="male">Male</mat-radio-button>
+                    <mat-radio-button value="female">Female</mat-radio-button>
+                    <mat-radio-button value="third">Third</mat-radio-button>
                   </mat-radio-group>
                     <app-test-input  [formControl]="$any(registrationForm.controls['username'])" [types]="'text'" [passwordType]="'p'" [iconHide]="false" [placeholder]="'Max-Musterman'" [label]="'Enter your Username'" ></app-test-input>
                     <app-test-input  [formControl]="$any(registrationForm.controls['firstname'])" [types]="'text'" [passwordType]="'p'" [iconHide]="false" [placeholder]="'Max'" [label]="'Enter your Firstname'" ></app-test-input>

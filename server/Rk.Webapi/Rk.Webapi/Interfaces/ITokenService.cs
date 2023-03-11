@@ -4,6 +4,6 @@ namespace Rk.Webapi.Interfaces
 {
     public interface ITokenService
     {
-        string CrateToken(AppUser appUser);
+        Task<string> CrateToken(AppUser appUser);
     }
 }
