@@ -33,10 +33,10 @@ export class UserManagementComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result : User) => {
       if(result) {
-       let index = this.users.findIndex(x => x.username === result.username);
-       this.users[index].roles = result.roles;
+      //  let index = this.users.findIndex(x => x.username === result.username);
+      //  this.users[index].roles = result.roles;
        this.adminService.updateUserRoles(result.username, result.roles.toString()).subscribe({
-        next: _ => this.toastr.success("Roles has been updated")
+        next: roles => {user.roles = roles; this.toastr.success("Roles has been updated")}
        })
       }
     });
