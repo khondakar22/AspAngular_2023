@@ -26,7 +26,6 @@ namespace Rk.Webapi.Extensions
             service.AddScoped<IPhotoService, PhotoService>();
             service.AddScoped<ILikesRepository, LikesRepository>();
             service.AddScoped<LogUserActivity>();
-            service.AddSignalR();
             return service;
         }
     }

@@ -46,7 +46,6 @@ userParams: UserParams | undefined;
    }
 
   getMembers(userParams: UserParams) {
-    console.log("🚀 ~ file: members.service.ts:49 ~ MembersService ~ getMembers ~ userParams:", userParams)
     // console.log(Object.values(userParams).join('-'))
     const response = this.memberCache.get(Object.values(userParams).join('-'));
     if(response) return of(response);
@@ -55,7 +54,6 @@ userParams: UserParams | undefined;
     params = params.append('maxAge', userParams.maxAge);
     params = params.append('gender', userParams.gender);
     params = params.append('orderBy', userParams.orderBy);
-    console.log("🚀 ~ file: members.service.ts:58 ~ MembersService ~ getMembers ~ params:", params)
 
     return getPaginatedResult<Member[]>( this.baseUrl + 'users', params, this.http).pipe(
       map(response => {
