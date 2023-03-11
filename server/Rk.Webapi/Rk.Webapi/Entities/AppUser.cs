@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.AspNetCore.Identity;
 using Rk.Webapi.Extensions;
 
 namespace Rk.Webapi.Entities
@@ -16,15 +17,10 @@ namespace Rk.Webapi.Entities
     **/
 
 
-    public class AppUser
+    public class AppUser : IdentityUser<int>
     {
-        public int Id { get; set; }
-        public string UserName { get; set; }
         public string Firstname { get; set; }
         public string Lastname { get; set; }
-        public byte[] PasswordHash { get; set; }
-        public byte[] PasswordSaltBytes { get; set; }
-
         public DateTime DateOfBirth { get; set; }
         public string KnownAs { get; set; }
         public DateTime Created { get; set; } = DateTime.UtcNow;
@@ -44,6 +40,7 @@ namespace Rk.Webapi.Entities
         public List<Message> MessagesSent { get; set; }
         public List<Message> MessagesReceived { get; set; }
 
+        public ICollection<AppUserRole> UserRoles { get; set; }
     }
 
 

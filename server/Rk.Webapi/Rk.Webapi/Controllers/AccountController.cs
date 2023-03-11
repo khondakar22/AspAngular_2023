@@ -27,13 +27,8 @@ namespace Rk.Webapi.Controllers
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
             if (await UserExists(registerDto.Username)) return BadRequest("Username is taken");
-            using var hmac = new HMACSHA512();
             var user = _mapper.Map<AppUser>(registerDto);
 
-            user.UserName = registerDto.Username.ToLower();
-            user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password));
-            user.PasswordSaltBytes = hmac.Key;
-            
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
             var userWithToen = new UserDto
@@ -54,12 +49,6 @@ namespace Rk.Webapi.Controllers
 
 
             if (user == null) return Unauthorized("Invalid Username");
-            using var hmac = new HMACSHA512(user.PasswordSaltBytes);
-            var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
-            for (int i = 0; i < computedHash.Length; i++)
-            {
-                if (computedHash[i] != user.PasswordHash[i]) return Unauthorized("Invalid password");
-            }
             var userWithToen = new UserDto
             {
                 Username = user.UserName,

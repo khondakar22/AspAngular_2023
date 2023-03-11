@@ -6,6 +6,8 @@ using Rk.Webapi.Extensions;
 using Rk.Webapi.Interfaces;
 using Rk.Webapi.Services;
 using System.Text;
+using Microsoft.AspNetCore.Identity;
+using Rk.Webapi.Entities;
 using Rk.Webapi.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -34,8 +36,9 @@ try
     var context = services.GetService<DataContext>();
     if (context != null)
     {
+        var userManager = services.GetRequiredService<UserManager<AppUser>>();
         await context.Database.MigrateAsync();
-        await SeedData.SeedUsers(context);
+        await SeedData.SeedUsers(userManager);
     }
 }
 catch (Exception e)
