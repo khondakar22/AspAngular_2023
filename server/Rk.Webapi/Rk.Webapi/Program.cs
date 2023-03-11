@@ -9,6 +9,7 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Rk.Webapi.Entities;
 using Rk.Webapi.Middleware;
+using Rk.Webapi.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,11 +24,15 @@ var app = builder.Build();
 
 app.UseMiddleware<ExceptionMiddleware>();
 
-app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().AllowCredentials().WithOrigins("http://localhost:4200"));
+app.UseCors(builder => builder.AllowAnyHeader()
+                                .AllowAnyMethod()
+                                .AllowCredentials()
+                                .WithOrigins("http://localhost:4200"));
 // Configure the HTTP request pipeline.
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+app.MapHub<PresenceHub>("hubs/presence");
 
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
