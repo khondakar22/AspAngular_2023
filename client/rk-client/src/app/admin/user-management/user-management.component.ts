@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
+import { RolesModalComponent } from 'src/app/modals/roles-modal/roles-modal.component';
 import { User } from 'src/app/_models/user';
 import { AdminService } from 'src/app/_services/admin.service';
 
@@ -9,7 +12,8 @@ import { AdminService } from 'src/app/_services/admin.service';
 })
 export class UserManagementComponent implements OnInit {
   users: User[] = [];
-  constructor(private adminService: AdminService) {
+  constructor(private adminService: AdminService, public dialog: MatDialog,
+    private toastr: ToastrService) {
 
   }
   ngOnInit(): void {
@@ -22,4 +26,20 @@ export class UserManagementComponent implements OnInit {
       }
     })
   }
+  openEditModal(user: User) {
+    const dialogRef = this.dialog.open(RolesModalComponent, {
+      data: user,
+    });
+
+    dialogRef.afterClosed().subscribe((result : User) => {
+      if(result) {
+       let index = this.users.findIndex(x => x.username === result.username);
+       this.users[index].roles = result.roles;
+       this.adminService.updateUserRoles(result.username, result.roles.toString()).subscribe({
+        next: _ => this.toastr.success("Roles has been updated")
+       })
+      }
+    });
+  }
+
 }
