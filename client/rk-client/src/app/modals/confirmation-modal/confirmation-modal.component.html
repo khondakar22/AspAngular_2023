@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>{{ data.title }}</h1>
+<div mat-dialog-content>
+  <h2>{{ data.messages }}</h2>
+</div>
+<div mat-dialog-actions class="d-flex justify-content-end mb-3">
+  <button mat-raised-button color="accent" (click)="onNoClick()">
+    {{ data.btnOk }}
+  </button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="onYesClick()"
+    cdkFocusInitial
+  >
+    {{ data.btnCancel }}
+  </button>
+</div>

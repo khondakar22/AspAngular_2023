@@ -17,30 +17,42 @@ import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { AdminGuard } from './_guards/admin.guard';
 
 const routes: Routes = [
-  { path: '',   redirectTo: '/home', pathMatch: 'full' },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   {
     path: '',
     runGuardsAndResolvers: 'always',
     canActivate: [AuthGuard],
     children: [
       { path: 'members', component: MemberListComponent },
-      { path: 'members/:userName', component: MemberDetailsComponent, resolve: { member: MemberDetailedResolver }  },
-      { path: 'member/edit', component: MemberEditComponent, canDeactivate:[ PreventUnsavedChangesGuard]  },
-      { path: 'lists', component: ListsComponent  },
-      { path: 'messages', component: MessagesComponent  },
-      { path: 'admin', component: AdminPanelComponent, canActivate: [AdminGuard]  },
-    ]
+      {
+        path: 'members/:userName',
+        component: MemberDetailsComponent,
+        resolve: { member: MemberDetailedResolver },
+      },
+      {
+        path: 'member/edit',
+        component: MemberEditComponent,
+        canDeactivate: [PreventUnsavedChangesGuard],
+      },
+      { path: 'lists', component: ListsComponent },
+      { path: 'messages', component: MessagesComponent },
+      {
+        path: 'admin',
+        component: AdminPanelComponent,
+        canActivate: [AdminGuard],
+      },
+    ],
   },
-  { path: 'home', component: HomeComponent  },
-  { path: 'login', component: LoginComponent  },
-  { path: 'test-error', component: TestErrorComponent  },
-  { path: 'not-found', component: NotFoundComponent  },
-  { path: 'server-error', component: ServerErrorComponent  },
-  { path: '**',   component: NotFoundComponent, pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'test-error', component: TestErrorComponent },
+  { path: 'not-found', component: NotFoundComponent },
+  { path: 'server-error', component: ServerErrorComponent },
+  { path: '**', component: NotFoundComponent, pathMatch: 'full' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

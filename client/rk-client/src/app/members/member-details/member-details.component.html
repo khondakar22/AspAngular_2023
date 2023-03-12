@@ -1,4 +1,4 @@
-<div class="container mt-5" >
+<div class="container mt-5">
   <div class="row">
     <div class="col-4">
       <div class="card">
@@ -8,10 +8,13 @@
           class="card-img-top img-thumbnail"
         />
         <div class="card-body">
-          <div class="mb-2" *ngIf="(presenceService.onlineUsers$ | async)?.includes(member.userName)">
-            <mat-icon class="text-success">
-              person
-            </mat-icon>
+          <div
+            class="mb-2"
+            *ngIf="
+              (presenceService.onlineUsers$ | async)?.includes(member.userName)
+            "
+          >
+            <mat-icon class="text-success"> person </mat-icon>
             <strong class="text-success">Online now</strong>
           </div>
           <div>
@@ -24,47 +27,64 @@
           </div>
           <div>
             <strong>Last active:</strong>
-            <p>{{ member.lastActive  | timeago }}</p>
+            <p>{{ member.lastActive | timeago }}</p>
           </div>
           <div>
             <strong>Member Since:</strong>
-            <p>{{ member.created | date:'dd MMM yyyy' }}</p>
+            <p>{{ member.created | date : "dd MMM yyyy" }}</p>
           </div>
         </div>
         <div class="card-footer">
           <div class="example-btn">
             <button mat-raised-button color="primary">Like</button>
-            <button mat-raised-button color="accent" (click)="goMessage('Messages')">Messages</button>
+            <button
+              mat-raised-button
+              color="accent"
+              (click)="goMessage('Messages')"
+            >
+              Messages
+            </button>
           </div>
         </div>
       </div>
     </div>
     <div class="col-8">
-      <mat-tab-group #myMessageTab mat-stretch-tabs (selectedTabChange)="onTabChange($event)" class="example-stretched-tabs mat-elevation-z4">
-        <mat-tab label="About {{member.knownAs}}">
+      <mat-tab-group
+        #myMessageTab
+        mat-stretch-tabs
+        (selectedTabChange)="onTabChange($event)"
+        class="example-stretched-tabs mat-elevation-z4"
+      >
+        <mat-tab label="About {{ member.knownAs }}">
           <div class="m-3">
-            <h4  > Description </h4>
-            <p>{{member.introduction}}</p>
-            <h4> Looking for </h4>
-            <p>{{member.lookingFor}}</p>
+            <h4>Description</h4>
+            <p>{{ member.introduction }}</p>
+            <h4>Looking for</h4>
+            <p>{{ member.lookingFor }}</p>
           </div>
-
         </mat-tab>
         <mat-tab label="Interests">
           <div class="m-3">
-            <h4>
-              Interests
-            </h4>
-            <p>{{member.interests}}</p>
+            <h4>Interests</h4>
+            <p>{{ member.interests }}</p>
           </div>
-
         </mat-tab>
-        <mat-tab label="Photos"> <div class="m-3">
-          <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery>
-        </div>  </mat-tab>
-        <mat-tab label="Messages"> <div class="m-3">
-          <app-member-messages [username]="member.userName" ></app-member-messages>
-        </div> </mat-tab>
+        <mat-tab label="Photos">
+          <div class="m-3">
+            <ngx-gallery
+              [options]="galleryOptions"
+              [images]="galleryImages"
+              class="ngx-gallery"
+            ></ngx-gallery>
+          </div>
+        </mat-tab>
+        <mat-tab label="Messages">
+          <div class="m-3">
+            <app-member-messages
+              [username]="member.userName"
+            ></app-member-messages>
+          </div>
+        </mat-tab>
       </mat-tab-group>
     </div>
   </div>

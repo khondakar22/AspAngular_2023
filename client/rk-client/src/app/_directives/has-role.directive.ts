@@ -1,4 +1,10 @@
-import { Directive, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
+import {
+  Directive,
+  Input,
+  OnInit,
+  TemplateRef,
+  ViewContainerRef,
+} from '@angular/core';
 import { take } from 'rxjs';
 import { User } from '../_models/user';
 import { AccountService } from '../_services/account.service';
@@ -15,16 +21,16 @@ export class HasRoleDirective implements OnInit {
     private accountService: AccountService
   ) {
     this.accountService.currentUser$.pipe(take(1)).subscribe({
-      next: res => {
-        if(res) this.user = res
-      }
-    })
+      next: (res) => {
+        if (res) this.user = res;
+      },
+    });
   }
   ngOnInit(): void {
-   if(this.user.roles.some(r => this.appHasRole.includes(r))) {
-    this.viewContainerRef.createEmbeddedView(this.templateRef);
-   } else {
-    this.viewContainerRef.clear();
-   }
+    if (this.user.roles.some((r) => this.appHasRole.includes(r))) {
+      this.viewContainerRef.createEmbeddedView(this.templateRef);
+    } else {
+      this.viewContainerRef.clear();
+    }
   }
 }

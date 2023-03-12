@@ -1,18 +1,38 @@
 <h1 mat-dialog-title>Edit Roles</h1>
 <div mat-dialog-content>
-  <p>Do you change the roles of {{username}} ?</p>
-    <form [formGroup]="rolesForm"  #myRolesForm="ngForm"  (ngSubmit)="onSaveModal()" id="rolesForm">
-      <mat-form-field>
-        <mat-label>Select User Roles  to change</mat-label>
-        <mat-select placeholder="Select Roles" formControlName="selectedRoles" multiple>
-          <mat-option *ngFor="let roles of availableRoles" [disabled]="roles ==='Admin' && username==='admin'" [value]="roles">{{roles}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </form>
-
-
+  <p>Do you change the roles of {{ username }} ?</p>
+  <form
+    [formGroup]="rolesForm"
+    #myRolesForm="ngForm"
+    (ngSubmit)="onSaveModal()"
+    id="rolesForm"
+  >
+    <mat-form-field>
+      <mat-label>Select User Roles to change</mat-label>
+      <mat-select
+        placeholder="Select Roles"
+        formControlName="selectedRoles"
+        multiple
+      >
+        <mat-option
+          *ngFor="let roles of availableRoles"
+          [disabled]="roles === 'Admin' && username === 'admin'"
+          [value]="roles"
+          >{{ roles }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+  </form>
 </div>
 <div mat-dialog-actions class="d-flex justify-content-end mb-3">
   <button mat-raised-button color="accent" (click)="onNoClick()">NO</button>
-  <button mat-raised-button color="primary" (click)="myRolesForm.ngSubmit.emit()" type="submit" cdkFocusInitial>Yes</button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="myRolesForm.ngSubmit.emit()"
+    type="submit"
+    cdkFocusInitial
+  >
+    Yes
+  </button>
 </div>

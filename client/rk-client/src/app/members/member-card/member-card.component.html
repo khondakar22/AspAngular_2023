@@ -6,48 +6,54 @@
       src="{{ member.photoUrl }}"
       alt="{{ member.knownAs }}"
     />
-    <mat-card-title class="example-card-title">{{ member.knownAs }}, {{member.age}}</mat-card-title>
+    <mat-card-title class="example-card-title"
+      >{{ member.knownAs }}, {{ member.age }}</mat-card-title
+    >
     <mat-card-subtitle>{{ member.city }}</mat-card-subtitle>
   </mat-card-header>
-    <img
+  <img
     mat-card-image
     class="example-mat-card-img"
     src="{{ member.photoUrl }}"
     alt="{{ member.knownAs }}"
   />
-<ul class="list-inline member-icons animate text-center">
+  <ul class="list-inline member-icons animate text-center">
     <li class="list-inline-item">
-      <button routerLink="/members/{{member.userName}}" mat-mini-fab color="primary">
-        <mat-icon>
-            account_box
-          </mat-icon>
+      <button
+        routerLink="/members/{{ member.userName }}"
+        mat-mini-fab
+        color="primary"
+      >
+        <mat-icon> account_box </mat-icon>
       </button>
     </li>
     <li class="list-inline-item">
-      <button routerLink="/members/{{member.userName}}" [queryParams]="{tab: 'Messages'}" mat-mini-fab color="primary">
+      <button
+        routerLink="/members/{{ member.userName }}"
+        [queryParams]="{ tab: 'Messages' }"
+        mat-mini-fab
+        color="primary"
+      >
         <mat-icon>message</mat-icon>
       </button>
     </li>
   </ul>
 
-
   <mat-card-actions class="example-card-action">
-  <a (click)="addLike(member)">
-    <mat-icon>
-      thumb_up
-    </mat-icon>
-  </a>
-  <a (click)="adLove()">
-    <mat-icon>
-      favorite
-    </mat-icon>
-  </a>
-  <a (click)="addFriendRequest()">
-    <mat-icon [class.is-online]="(presenceService.onlineUsers$ | async)?.includes(member.userName)">
-      <span class="blinka" >
-        accessibility_new
-        </span>
-    </mat-icon>
-  </a>
+    <a (click)="addLike(member)">
+      <mat-icon> thumb_up </mat-icon>
+    </a>
+    <a (click)="adLove()">
+      <mat-icon> favorite </mat-icon>
+    </a>
+    <a (click)="addFriendRequest()">
+      <mat-icon
+        [class.is-online]="
+          (presenceService.onlineUsers$ | async)?.includes(member.userName)
+        "
+      >
+        <span class="blinka"> accessibility_new </span>
+      </mat-icon>
+    </a>
   </mat-card-actions>
 </mat-card>

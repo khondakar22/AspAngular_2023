@@ -17,28 +17,20 @@ export class MemberListComponent implements OnInit {
   members: Member[] = [];
   pagination: Pagination | undefined;
   userParams: UserParams | undefined;
-  genderList = [{value: 'male', dispaly: 'Males'}, {value: 'female', dispaly: 'Females'} ]
-  /**
-   *
-   */
+  genderList = [
+    { value: 'male', dispaly: 'Males' },
+    { value: 'female', dispaly: 'Females' },
+  ];
+
   constructor(private memberService: MembersService) {
-    // this.accountService.currentUser$.pipe(take(1)).subscribe({
-    //   next: res => {
-    //     if(res) {
-    //       this.userParams = new UserParams(res);
-    //       this.user = res;
-    //     }
-    //   }
-    // })
     this.userParams = this.memberService.getUserParams();
   }
 
   ngOnInit(): void {
-    // this.members$ = this.memberService.getMembers();
     this.loadMembers();
   }
   loadMembers() {
-    if(this.userParams) {
+    if (this.userParams) {
       this.memberService.setUserParams(this.userParams);
       this.memberService.getMembers(this.userParams).subscribe({
         next: (res) => {
@@ -52,7 +44,7 @@ export class MemberListComponent implements OnInit {
   }
 
   pageChanged(event: any) {
-    if(this.userParams) {
+    if (this.userParams) {
       this.userParams.pageNumber = event.pageIndex + 1;
       this.userParams.pageSize = event.pageSize;
       this.memberService.setUserParams(this.userParams);
@@ -60,13 +52,13 @@ export class MemberListComponent implements OnInit {
     }
   }
   loadActiveMember(orderBy: string) {
-    if(!this.userParams) return;
-    this.userParams.orderBy = orderBy
+    if (!this.userParams) return;
+    this.userParams.orderBy = orderBy;
     this.loadMembers();
   }
 
-  resetFilters(){
-      this.userParams = this.memberService.resetUserParams();
-      this.loadMembers;
+  resetFilters() {
+    this.userParams = this.memberService.resetUserParams();
+    this.loadMembers;
   }
 }

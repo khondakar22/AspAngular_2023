@@ -43,7 +43,6 @@ export class MemberDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // this.loadMember();
     this.route.data.subscribe({
       next: (res) => {
         this.member = res['member'];

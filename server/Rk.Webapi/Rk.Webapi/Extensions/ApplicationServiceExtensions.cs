@@ -20,15 +20,13 @@ namespace Rk.Webapi.Extensions
             service.AddCors();
             // Add Services
             service.AddScoped<ITokenService, TokenService>();
-            service.AddScoped<IUserRepository, UserRepository>();
-            service.AddScoped<IMessageRepository, MessageRepository>();
             service.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             service.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
             service.AddScoped<IPhotoService, PhotoService>();
-            service.AddScoped<ILikesRepository, LikesRepository>();
             service.AddScoped<LogUserActivity>();
             service.AddSignalR();
             service.AddSingleton<PresenceTracker>();
+            service.AddScoped<IUnitOfWork, UnitOfWork>();
             return service;
         }
     }

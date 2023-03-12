@@ -36,7 +36,7 @@ import { HasRoleDirective } from './_directives/has-role.directive';
 import { UserManagementComponent } from './admin/user-management/user-management.component';
 import { PhotoManagementComponent } from './admin/photo-management/photo-management.component';
 import { RolesModalComponent } from './modals/roles-modal/roles-modal.component';
-
+import { ConfirmationModalComponent } from './modals/confirmation-modal/confirmation-modal.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +65,7 @@ import { RolesModalComponent } from './modals/roles-modal/roles-modal.component'
     UserManagementComponent,
     PhotoManagementComponent,
     RolesModalComponent,
+    ConfirmationModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,12 +74,16 @@ import { RolesModalComponent } from './modals/roles-modal/roles-modal.component'
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    SharedModule
+    SharedModule,
   ],
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorsInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true}
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptorsInterceptor,
+      multi: true,
+    },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })

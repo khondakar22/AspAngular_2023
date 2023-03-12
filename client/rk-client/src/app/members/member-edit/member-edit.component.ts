@@ -10,43 +10,47 @@ import { MembersService } from 'src/app/_services/members.service';
 @Component({
   selector: 'app-member-edit',
   templateUrl: './member-edit.component.html',
-  styleUrls: ['./member-edit.component.css']
+  styleUrls: ['./member-edit.component.css'],
 })
 export class MemberEditComponent implements OnInit {
   @ViewChild('editForm') editForm: NgForm | undefined;
-  @HostListener('window:beforeunload', ['$event']) unloadNotification($event: any) {
-    if(this.editForm?.dirty) {
+  @HostListener('window:beforeunload', ['$event']) unloadNotification(
+    $event: any
+  ) {
+    if (this.editForm?.dirty) {
       $event.returnValue = true;
     }
   }
   member: Member | undefined;
   user: User | null = null;
 
-
-  constructor(private acoountService: AccountService, private memberService: MembersService, private toastr: ToastrService){
+  constructor(
+    private acoountService: AccountService,
+    private memberService: MembersService,
+    private toastr: ToastrService
+  ) {
     this.acoountService.currentUser$.pipe(take(1)).subscribe({
-      next: user => this.user = user
-    })
+      next: (user) => (this.user = user),
+    });
   }
   ngOnInit(): void {
     this.loadMember();
   }
 
   loadMember() {
-    if(!this.user)return;
+    if (!this.user) return;
     this.memberService.getMember(this.user.username).subscribe({
-      next: res => this.member = res
-    })
+      next: (res) => (this.member = res),
+    });
   }
 
-  updateMember(){
+  updateMember() {
     console.log(this.member);
     this.memberService.updateMember(this.editForm?.value).subscribe({
-      next:_ => {
-        this.toastr.success("Profile updated");
+      next: (_) => {
+        this.toastr.success('Profile updated');
         this.editForm?.reset(this.member);
-      }
+      },
     });
-
   }
 }

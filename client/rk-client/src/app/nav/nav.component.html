@@ -3,19 +3,39 @@
     <div class="menu-container">
       <div class="right-nav-item">
         <a routerLink="/" routerLinkActive="active">My Learning App</a>
-        <ul  class="right-nav-item_ul">
-          <ng-container *ngIf="accountService.currentUser$ | async" >
+        <ul class="right-nav-item_ul">
+          <ng-container *ngIf="accountService.currentUser$ | async">
             <li>
-              <a routerLink="/members" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true }" >Matches</a>
+              <a
+                routerLink="/members"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                >Matches</a
+              >
             </li>
             <li>
-              <a routerLink="/lists" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true }" >Likes Lists</a>
+              <a
+                routerLink="/lists"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                >Likes Lists</a
+              >
             </li>
             <li>
-              <a routerLink="/messages" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true }">Messages</a>
+              <a
+                routerLink="/messages"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                >Messages</a
+              >
             </li>
             <li *appHasRole="['Admin', 'Moderator']">
-              <a routerLink="/admin" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true }">Admin</a>
+              <a
+                routerLink="/admin"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                >Admin</a
+              >
             </li>
           </ng-container>
           <!-- <li>
@@ -30,7 +50,7 @@
             <mat-icon class="material-symbols-outlined">login</mat-icon>
           </a>
         </ng-container>
-        <ng-container *ngIf="(accountService.currentUser$ | async) as user">
+        <ng-container *ngIf="accountService.currentUser$ | async as user">
           <a mat-button [matMenuTriggerFor]="belowMenu">
             <mat-icon class="material-symbols-outlined">people</mat-icon>
           </a>
@@ -39,7 +59,10 @@
             #belowMenu="matMenu"
             yPosition="below"
           >
-            <a routerLink="/member/edit" mat-menu-item>Hello {{user.knownAs | titlecase }} <img src="{{user.photoUrl}}" alt="user photo"> </a>
+            <a routerLink="/member/edit" mat-menu-item
+              >Hello {{ user.knownAs | titlecase }}
+              <img src="{{ user.photoUrl }}" alt="user photo" />
+            </a>
             <a mat-menu-item (click)="onLogout()">Logout</a>
           </mat-menu>
         </ng-container>
@@ -47,4 +70,3 @@
     </div>
   </div>
 </mat-toolbar>
-

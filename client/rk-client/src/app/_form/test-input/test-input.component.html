@@ -1,18 +1,23 @@
-<mat-form-field  appearance="outline" >
+<mat-form-field appearance="outline">
   <mat-label>{{ label }}</mat-label>
-  <input matInput  placeholder={{placeholder}} type={{types}} [formControl]="control" />
+  <input
+    matInput
+    placeholder="{{ placeholder }}"
+    type="{{ types }}"
+    [formControl]="control"
+  />
   <a
-  *ngIf="passwordType === 'password'"
-  mat-icon-button
-  matSuffix
-  (click)="onEyeClick(iconHide)"
-  [attr.aria-label]="'Hide password'"
-  [attr.aria-pressed]="iconHide"
+    *ngIf="passwordType === 'password'"
+    mat-icon-button
+    matSuffix
+    (click)="onEyeClick(iconHide)"
+    [attr.aria-label]="'Hide password'"
+    [attr.aria-pressed]="iconHide"
   >
-  <mat-icon class="mat-visibility">{{
-    iconHide ? "visibility_off" : "visibility"
-  }}</mat-icon>
-</a>
+    <mat-icon class="mat-visibility">{{
+      iconHide ? "visibility_off" : "visibility"
+    }}</mat-icon>
+  </a>
 </mat-form-field>
 <ng-container *ngIf="control?.touched || control?.dirty">
   <mat-error *ngIf="control?.errors?.['required']">
@@ -23,11 +28,10 @@
     {{control.errors?.['minlength'].requiredLength}} characters
   </mat-error>
   <mat-error *ngIf="control?.errors?.['maxlength']">
-  Must be at most
+    Must be at most
     {{control.errors?.['maxlength'].requiredLength}} characters
   </mat-error>
   <mat-error *ngIf="control?.errors?.['notMatching']">
     {{ label }} doesn't match
   </mat-error>
 </ng-container>
-

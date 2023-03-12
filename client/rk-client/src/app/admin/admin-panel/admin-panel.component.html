@@ -1,11 +1,13 @@
 <div class="container mt-3">
   <h2>Admin Panel</h2>
-  <mat-tab-group mat-stretch-tabs class="example-stretched-tabs mat-elevation-z4">
-    <mat-tab *appHasRole="['Admin']" label="User Management" >
+  <mat-tab-group
+    mat-stretch-tabs
+    class="example-stretched-tabs mat-elevation-z4"
+  >
+    <mat-tab *appHasRole="['Admin']" label="User Management">
       <div class="container mt-3">
         <app-user-management></app-user-management>
       </div>
-
     </mat-tab>
     <mat-tab *appHasRole="['Admin', 'Moderator']" label="Photo Management">
       <div class="container mt-3">

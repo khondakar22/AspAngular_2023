@@ -52,16 +52,15 @@ namespace Rk.Webapi.Data
 
         public async Task<IEnumerable<MessageDto>> GetMessageThread(string currentUsername, string recipientUsername)
         {
-            var messages = await _context.Messages.Include(x => x.Sender)
-                .ThenInclude(x => x.Photos)
-                .Include(x => x.Recipient)
-                .ThenInclude(x => x.Photos)
-                .Where(x => x.RecipientUsername == currentUsername && x.RecipientDeleted == false && x.SenderUsername == recipientUsername
-                            || x.RecipientUsername == recipientUsername && x.SenderDeleted == false  && x.SenderUsername == currentUsername)
-                .OrderBy(x => x.MessageSent)
-                .ToListAsync();
-            var unreadMessages = messages.Where(x => x.DateRead == null
-                                                     && x.RecipientUsername == currentUsername).ToList();
+            var query = _context.Messages
+                .Where(x => x.RecipientUsername == currentUsername && x.RecipientDeleted == false &&
+                            x.SenderUsername == recipientUsername
+                            || x.RecipientUsername == recipientUsername && x.SenderDeleted == false &&
+                            x.SenderUsername == currentUsername)
+                .OrderBy(x => x.MessageSent).AsQueryable();
+               
+            var unreadMessages = query.Where(x => x.DateRead == null
+                                                  && x.RecipientUsername == currentUsername).ToList();
             if (unreadMessages.Any())
             {
                 foreach (var message in unreadMessages)
@@ -69,16 +68,11 @@ namespace Rk.Webapi.Data
                     message.DateRead = DateTime.UtcNow;
                 }
 
-                await _context.SaveChangesAsync();
             }
 
-            return _mapper.Map<IEnumerable<MessageDto>>(messages);
+            return await query.ProjectTo<MessageDto>(_mapper.ConfigurationProvider).ToListAsync();
         }
 
-        public async Task<bool> SaveAllAsync()
-        {
-            return await _context.SaveChangesAsync() > 0;
-        }
 
         public void AddGroup(Group group)
         {
@@ -87,7 +81,7 @@ namespace Rk.Webapi.Data
 
         public void RemoveConnection(Connection connection)
         {
-          _context.Connections.Remove(connection);
+            _context.Connections.Remove(connection);
         }
 
         public async Task<Connection> GetConnection(string connectionId)

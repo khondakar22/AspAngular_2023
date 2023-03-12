@@ -1,84 +1,177 @@
 <div *ngIf="!(currentUser$ | async)" class="container">
   <mat-card class="example-card">
+    <mat-card-content>
+      <mat-tab-group
+        mat-stretch-tabs="false"
+        (selectedTabChange)="onTabChange($event)"
+        mat-align-tabs="center"
+      >
+        <mat-tab label="Login">
+          <form
+            [formGroup]="loginForm"
+            #myLoginForm="ngForm"
+            (ngSubmit)="onLogin()"
+          >
+            <div class="login-form">
+              <mat-form-field appearance="outline">
+                <mat-label>Enter your username</mat-label>
+                <input
+                  matInput
+                  placeholder="max-username"
+                  formControlName="username"
+                  required
+                />
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Enter your password</mat-label>
+                <input
+                  formControlName="password"
+                  required
+                  matInput
+                  [type]="hide ? 'password' : 'text'"
+                />
+                <a
+                  mat-icon-button
+                  matSuffix
+                  (click)="hide = !hide"
+                  [attr.aria-label]="'Hide password'"
+                  [attr.aria-pressed]="hide"
+                >
+                  <mat-icon class="mat-visibility">{{
+                    hide ? "visibility_off" : "visibility"
+                  }}</mat-icon>
+                </a>
+              </mat-form-field>
+            </div>
+          </form>
+        </mat-tab>
+        <mat-tab label="Register">
+          <form
+            [formGroup]="registrationForm"
+            #myRegistrationForm="ngForm"
+            (ngSubmit)="onRegistration()"
+          >
+            <div class="login-form">
+              <mat-radio-group
+                aria-label="Select an option"
+                formControlName="gender"
+              >
+                <mat-radio-button value="male">Male</mat-radio-button>
+                <mat-radio-button value="female">Female</mat-radio-button>
+                <mat-radio-button value="third">Third</mat-radio-button>
+              </mat-radio-group>
+              <app-test-input
+                [formControl]="$any(registrationForm.controls['username'])"
+                [types]="'text'"
+                [passwordType]="'p'"
+                [iconHide]="false"
+                [placeholder]="'Max-Musterman'"
+                [label]="'Enter your Username'"
+              ></app-test-input>
+              <app-test-input
+                [formControl]="$any(registrationForm.controls['firstname'])"
+                [types]="'text'"
+                [passwordType]="'p'"
+                [iconHide]="false"
+                [placeholder]="'Max'"
+                [label]="'Enter your Firstname'"
+              ></app-test-input>
+              <app-test-input
+                [formControl]="$any(registrationForm.controls['lastname'])"
+                [types]="'text'"
+                [passwordType]="'p'"
+                [iconHide]="false"
+                [placeholder]="'Musterman'"
+                [label]="'Enter your Lastname'"
+              ></app-test-input>
+              <app-test-input
+                [formControl]="$any(registrationForm.controls['email'])"
+                [types]="'text'"
+                [passwordType]="'p'"
+                [iconHide]="false"
+                [placeholder]="'pat@example.com'"
+                [label]="'Enter your Email'"
+              ></app-test-input>
 
-      <mat-card-content  >
-        <mat-tab-group mat-stretch-tabs="false" (selectedTabChange)="onTabChange($event)" mat-align-tabs="center">
-          <mat-tab  label="Login" >
+              <app-test-input
+                [formControl]="$any(registrationForm.controls['knownAs'])"
+                [types]="'text'"
+                [passwordType]="'p'"
+                [iconHide]="false"
+                [placeholder]="'Cool Name'"
+                [label]="'Enter your known name'"
+              ></app-test-input>
+              <app-test-input
+                [formControl]="$any(registrationForm.controls['city'])"
+                [types]="'text'"
+                [passwordType]="'p'"
+                [iconHide]="false"
+                [placeholder]="'Muster City'"
+                [label]="'Enter your City'"
+              ></app-test-input>
+              <app-test-input
+                [formControl]="$any(registrationForm.controls['country'])"
+                [types]="'text'"
+                [passwordType]="'p'"
+                [iconHide]="false"
+                [placeholder]="'Muster Country'"
+                [label]="'Enter your Country'"
+              ></app-test-input>
 
-            <form [formGroup]="loginForm"  #myLoginForm="ngForm"  (ngSubmit)="onLogin()">
-                <div class="login-form">
-                    <mat-form-field appearance="outline">
-                        <mat-label>Enter your username</mat-label>
-                        <input
-                        matInput
-                        placeholder="max-username"
-                        formControlName="username"
-                        required
-                        />
-                    </mat-form-field>
-                    <mat-form-field appearance="outline">
-                        <mat-label>Enter your password</mat-label>
-                        <input formControlName="password" required matInput [type]="hide ? 'password' : 'text'" />
-                        <a
-                        mat-icon-button
-                        matSuffix
-                        (click)="hide = !hide"
-                        [attr.aria-label]="'Hide password'"
-                        [attr.aria-pressed]="hide"
-                        >
-                        <mat-icon class="mat-visibility">{{
-                            hide ? "visibility_off" : "visibility"
-                        }}</mat-icon>
-                    </a>
-                    </mat-form-field>
-                </div>
-            </form>
+              <app-date-picker
+                [formControl]="$any(registrationForm.controls['dateOfBirth'])"
+                [minDate]="minDate"
+                [label]="'Choose a date'"
+              ></app-date-picker>
 
-
-          </mat-tab>
-          <mat-tab label="Register">
-            <form [formGroup]="registrationForm" #myRegistrationForm="ngForm" (ngSubmit)="onRegistration()">
-                <div class="login-form">
-                  <mat-radio-group aria-label="Select an option" formControlName="gender">
-                    <mat-radio-button value="male">Male</mat-radio-button>
-                    <mat-radio-button value="female">Female</mat-radio-button>
-                    <mat-radio-button value="third">Third</mat-radio-button>
-                  </mat-radio-group>
-                    <app-test-input  [formControl]="$any(registrationForm.controls['username'])" [types]="'text'" [passwordType]="'p'" [iconHide]="false" [placeholder]="'Max-Musterman'" [label]="'Enter your Username'" ></app-test-input>
-                    <app-test-input  [formControl]="$any(registrationForm.controls['firstname'])" [types]="'text'" [passwordType]="'p'" [iconHide]="false" [placeholder]="'Max'" [label]="'Enter your Firstname'" ></app-test-input>
-                    <app-test-input  [formControl]="$any(registrationForm.controls['lastname'])" [types]="'text'" [passwordType]="'p'" [iconHide]="false" [placeholder]="'Musterman'" [label]="'Enter your Lastname'" ></app-test-input>
-                    <app-test-input  [formControl]="$any(registrationForm.controls['email'])" [types]="'text'" [passwordType]="'p'" [iconHide]="false"[placeholder]="'pat@example.com'" [label]="'Enter your Email'" ></app-test-input>
-
-                    <app-test-input  [formControl]="$any(registrationForm.controls['knownAs'])" [types]="'text'" [passwordType]="'p'" [iconHide]="false"[placeholder]="'Cool Name'" [label]="'Enter your known name'" ></app-test-input>
-                    <app-test-input  [formControl]="$any(registrationForm.controls['city'])" [types]="'text'" [passwordType]="'p'" [iconHide]="false"[placeholder]="'Muster City'" [label]="'Enter your City'" ></app-test-input>
-                    <app-test-input  [formControl]="$any(registrationForm.controls['country'])" [types]="'text'" [passwordType]="'p'" [iconHide]="false"[placeholder]="'Muster Country'" [label]="'Enter your Country'" ></app-test-input>
-
-                    <app-date-picker [formControl]="$any(registrationForm.controls['dateOfBirth'])" [minDate]="minDate" [label]="'Choose a date'" ></app-date-picker>
-
-                    <app-test-input  [formControl]="$any(registrationForm.controls['password'])" [types]="'password'" [iconHide]="true" [placeholder]="'pat@example.com'" [label]="'Enter your Password'" ></app-test-input>
-                    <app-test-input  [formControl]="$any(registrationForm.controls['confirmpPassword'])" [types]="'password'" [iconHide]="true" [placeholder]="'pat@example.com'" [label]="'Confirm Your Password'" ></app-test-input>
-                </div>
-            </form>
-
-          </mat-tab>
-        </mat-tab-group>
-        <div class="row" *ngIf="validationErrors">
-            <ul class="text-danger">
-              <li *ngFor="let errors of validationErrors">
-                {{errors}}
-              </li>
-            </ul>
-        </div>
-      </mat-card-content>
-      <mat-card-actions class="mat__card__action">
-        <a routerLink="/home" mat-button>Cancel</a>
-        <button *ngIf="!isRegistrationForm"   [disabled]="!loginForm.valid"  (click)="myLoginForm.ngSubmit.emit()" type="submit" mat-button>
-          Login
-        </button>
-        <button *ngIf="isRegistrationForm" [disabled]="!registrationForm.valid" (click)="myRegistrationForm.ngSubmit.emit()" type="submit" mat-button>
-            Register
-          </button>
-      </mat-card-actions>
-
+              <app-test-input
+                [formControl]="$any(registrationForm.controls['password'])"
+                [types]="'password'"
+                [iconHide]="true"
+                [placeholder]="'pat@example.com'"
+                [label]="'Enter your Password'"
+              ></app-test-input>
+              <app-test-input
+                [formControl]="
+                  $any(registrationForm.controls['confirmpPassword'])
+                "
+                [types]="'password'"
+                [iconHide]="true"
+                [placeholder]="'pat@example.com'"
+                [label]="'Confirm Your Password'"
+              ></app-test-input>
+            </div>
+          </form>
+        </mat-tab>
+      </mat-tab-group>
+      <div class="row" *ngIf="validationErrors">
+        <ul class="text-danger">
+          <li *ngFor="let errors of validationErrors">
+            {{ errors }}
+          </li>
+        </ul>
+      </div>
+    </mat-card-content>
+    <mat-card-actions class="mat__card__action">
+      <a routerLink="/home" mat-button>Cancel</a>
+      <button
+        *ngIf="!isRegistrationForm"
+        [disabled]="!loginForm.valid"
+        (click)="myLoginForm.ngSubmit.emit()"
+        type="submit"
+        mat-button
+      >
+        Login
+      </button>
+      <button
+        *ngIf="isRegistrationForm"
+        [disabled]="!registrationForm.valid"
+        (click)="myRegistrationForm.ngSubmit.emit()"
+        type="submit"
+        mat-button
+      >
+        Register
+      </button>
+    </mat-card-actions>
   </mat-card>
 </div>

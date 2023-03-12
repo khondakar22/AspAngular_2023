@@ -10,13 +10,16 @@ import { User } from './_models/user';
 })
 export class AppComponent implements OnInit {
   title = 'rk-client';
-  constructor(private http: HttpClient, private accountService: AccountService) {}
+  constructor(
+    private http: HttpClient,
+    private accountService: AccountService
+  ) {}
   ngOnInit(): void {
     this.setCurrentUser();
   }
   setCurrentUser() {
-    const userString  = localStorage.getItem('user');
-    if(!userString) return;
+    const userString = localStorage.getItem('user');
+    if (!userString) return;
     const user = JSON.parse(userString);
     this.accountService.setCurrentUser(user);
   }

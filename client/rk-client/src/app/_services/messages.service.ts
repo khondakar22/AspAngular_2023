@@ -24,40 +24,40 @@ export class MessagesService {
 
   createHubConnection(user: User, otherUsername: string) {
     this.hubConnection = new HubConnectionBuilder()
-                        .withUrl(this.hubUrl + 'message?user=' + otherUsername, {
-                          accessTokenFactory: () => user.token
-                        })
-                        .withAutomaticReconnect()
-                        .build();
-    this.hubConnection?.start().catch(error => console.log(error));
-    this.hubConnection.on('ReceiveMessageThread', messages=>{
-      this.messageThreadSource.next(messages)
+      .withUrl(this.hubUrl + 'message?user=' + otherUsername, {
+        accessTokenFactory: () => user.token,
+      })
+      .withAutomaticReconnect()
+      .build();
+    this.hubConnection?.start().catch((error) => console.log(error));
+    this.hubConnection.on('ReceiveMessageThread', (messages) => {
+      this.messageThreadSource.next(messages);
     });
-    this.hubConnection.on('UpdatedGroup', (group: Group)=>{
-      if(group.connections.some(x => x.username === otherUsername)){
+    this.hubConnection.on('UpdatedGroup', (group: Group) => {
+      if (group.connections.some((x) => x.username === otherUsername)) {
         this.messageThread$.pipe(take(1)).subscribe({
-          next: messages => {
-            messages.forEach(message => {
-              if(!message.dateRead) {
-                message.dateRead = new Date(Date.now())
+          next: (messages) => {
+            messages.forEach((message) => {
+              if (!message.dateRead) {
+                message.dateRead = new Date(Date.now());
               }
-            })
+            });
             this.messageThreadSource.next([...messages]);
-          }
-        })
+          },
+        });
       }
     });
-    this.hubConnection.on('NewMessage', message=>{
-     this.messageThread$.pipe(take(1)).subscribe({
-      next: messages => {
-        this.messageThreadSource.next([...messages, message])
-      }
-     })
+    this.hubConnection.on('NewMessage', (message) => {
+      this.messageThread$.pipe(take(1)).subscribe({
+        next: (messages) => {
+          this.messageThreadSource.next([...messages, message]);
+        },
+      });
     });
   }
   stopHubConnection() {
-    if(this.hubConnection) {
-      this.hubConnection.stop().catch(error => console.log(error));
+    if (this.hubConnection) {
+      this.hubConnection.stop().catch((error) => console.log(error));
     }
   }
 
@@ -82,13 +82,15 @@ export class MessagesService {
     //   recipientUsername: username,
     //   content: content,
     // });
-    return this.hubConnection?.invoke('SendMessage', {
+    return this.hubConnection
+      ?.invoke('SendMessage', {
         recipientUsername: username,
         content: content,
-      }).catch(error => console.log(error));
+      })
+      .catch((error) => console.log(error));
   }
 
   deleteMessage(id: number) {
-    return this.http.delete(this.baseUrl + 'messages/' +id);
+    return this.http.delete(this.baseUrl + 'messages/' + id);
   }
 }
