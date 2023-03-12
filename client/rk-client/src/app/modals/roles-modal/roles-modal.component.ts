@@ -58,9 +58,5 @@ export class RolesModalComponent implements OnInit {
       this.data.roles = this.rolesForm.value.selectedRoles;
     }
     this.dialogRef.close(this.data);
-    console.log(
-      '🚀 ~ file: roles-modal.component.ts:49 ~ RolesModalComponent ~ onSaveModal ~    this.data:',
-      this.data
-    );
   }
 }

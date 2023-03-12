@@ -94,9 +94,7 @@ export class LoginComponent implements OnInit {
   onLogin() {
     this.accountService.onLogin(this.loginForm.value).subscribe({
       next: (response: any) => {
-        console.log(response);
         if (response && response.username === this.loginForm.value.username) {
-          console.log(response);
           this.currentUser$ = this.accountService.currentUser$;
           this.router.navigateByUrl('/');
         }
