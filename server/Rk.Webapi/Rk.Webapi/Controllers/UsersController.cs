@@ -79,7 +79,7 @@ namespace Rk.Webapi.Controllers
                 Url = result.SecureUrl.AbsoluteUri,
                 PublicId = result.PublicId,
             };
-            if (user.Photos.Count == 0) photo.IsMain = true;
+            //if (user.Photos.Count == 0) photo.IsMain = true;
             user.Photos.Add(photo);
             if (await _uow.Complete())
             {
@@ -118,7 +118,7 @@ namespace Rk.Webapi.Controllers
             var user = await _uow.UserRepository.GetUserByNameAsync(User.GetUserName());
 
             if (user == null) return NotFound();
-            var photo = user.Photos.FirstOrDefault(x => x.Id == photoId);
+            var photo = await _uow.PhotoRepository.GetPhotoById(photoId);
             if (photo == null) return NotFound();
             if (photo.IsMain) return BadRequest("You cannot delete your main photo");
             if (photo.PublicId != null)

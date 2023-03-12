@@ -45,20 +45,25 @@ namespace Rk.Webapi.Data
 
         public async Task<PagedList<MemberDto>> GetMembersAsync(UserParams userParams)
         {
-            var query = _context.Users.AsQueryable();
+            var query = _context.Users.Include(x => x.Photos).AsQueryable();
             query = query.Where(u => u.UserName != userParams.CurrentUsername);
             query = query.Where(u => u.Gender == userParams.Gender);
             var minDob = DateTime.Today.AddYears(-userParams.MaxAge - 1);
             var maxDob = DateTime.Today.AddYears(-userParams.MinAge);
             query = query.Where(x => x.DateOfBirth >= minDob && x.DateOfBirth <= maxDob);
+
+            foreach (var appUser in query)
+            {
+                var photos = _context.Photos.Where(x => x.Id == appUser.Id && x.IsApproved).ToList();
+                appUser.Photos = photos;
+            }
+
             query = userParams.OrderBy switch
             {
                 "created" => query.OrderByDescending(u => u.Created),
                 _ => query.OrderByDescending(u => u.LastActive)
             };
             
-            // var query= _context.Users
-            //    .ProjectTo<MemberDto>(_mapper.ConfigurationProvider).AsNoTracking();
             return await PagedList<MemberDto>.CreateAsync(query.AsNoTracking().ProjectTo<MemberDto>(_mapper.ConfigurationProvider), userParams.PageNumber, userParams.PageSize);
 
         }

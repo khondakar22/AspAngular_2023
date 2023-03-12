@@ -2,7 +2,11 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Rk.Webapi.Dto;
 using Rk.Webapi.Entities;
+using Rk.Webapi.Extensions;
+using Rk.Webapi.Helpers;
+using Rk.Webapi.Interfaces;
 
 namespace Rk.Webapi.Controllers
 {
@@ -10,10 +14,12 @@ namespace Rk.Webapi.Controllers
     public class AdminController : BaseApiController
     {
         private readonly UserManager<AppUser> _userManager;
+        private readonly IUnitOfWork _uow;
 
-        public AdminController( UserManager<AppUser> userManager)
+        public AdminController(UserManager<AppUser> userManager, IUnitOfWork uow)
         {
             _userManager = userManager;
+            _uow = uow;
         }
         [Authorize(Policy = "RequireAdminRole")]
         [HttpGet("users-with-roles")]
@@ -46,10 +52,35 @@ namespace Rk.Webapi.Controllers
         }
 
         [Authorize(Policy = "ModeratePhotoRole")]
-        [HttpGet("photos-to-moderate")]
-        public ActionResult GetPhotosForModeration()
+        [HttpGet("photos-to-moderate/{photoParams}")]
+        public async Task<ActionResult<PhotoForApprovalDto>> GetPhotosForModeration([FromQuery] PhotoParams photoParams)
         {
-            return Ok("Admins or Moderators can see this");
+            var photos = await _uow.PhotoRepository.GetUnapprovedPhotos(photoParams.PageNumber, photoParams.PageSize);
+            Response.AddPaginationHeader(new PaginationHeader(photos.CurrentPage, photos.PageSize, photos.TotalCount,
+                photos.TotalPages));
+            return Ok(photos);
+        }
+
+        [Authorize(Policy = "ModeratePhotoRole")]
+        [HttpPost("photos-to-approve/{userId}")]
+        public async Task<ActionResult<PhotoDto>> ApprovePhoto(int userId, [FromQuery] int photoId)
+        {
+            var result = await _uow.PhotoRepository.ApprovePhotoById(photoId, userId);
+           
+            if (await _uow.Complete()) return Ok(result);
+
+            return BadRequest("Problem approving the photo");
+        }
+
+
+        [Authorize(Policy = "ModeratePhotoRole")]
+        [HttpPost("photos-to-reject/{Id}")]
+        public async Task<ActionResult<PhotoDto>> RejectPhoto(int Id)
+        {
+            var result = await _uow.PhotoRepository.RejectPhoto(Id);
+            if (await _uow.Complete()) return Ok(result);
+
+            return BadRequest("Problem Rejecting the photo");
         }
 
     }

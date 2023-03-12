@@ -1,10 +1,8 @@
-﻿using System.Security.Cryptography;
-using System.Text;
-using System.Text.Json;
-using CloudinaryDotNet.Actions;
+﻿using System.Text.Json;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Rk.Webapi.Entities;
+
 
 namespace Rk.Webapi.Data
 {
@@ -14,7 +12,6 @@ namespace Rk.Webapi.Data
         {
             if(await userManager.Users.AnyAsync()) return;
             var userData = await File.ReadAllTextAsync("Data/UserSeedData.json");
-            //var option = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
             var users = JsonSerializer.Deserialize<List<AppUser>>(userData);
             var roles = new List<AppRole>
             {
@@ -31,7 +28,8 @@ namespace Rk.Webapi.Data
             {
                
                 user.UserName = user.UserName.ToLower();
-
+                user.Photos.FirstOrDefault(x => x.IsMain)!.IsApproved = true;
+                user.Photos.FirstOrDefault(x => x.IsMain)!.IsRejected = false;
                 await userManager.CreateAsync(user, "Start12345@") ;
                 await userManager.AddToRoleAsync(user, "Member");
             }
@@ -51,6 +49,10 @@ namespace Rk.Webapi.Data
                     Interests = "Sit sit incididunt proident velit.",
                     City = "Greenbush",
                     Country = "Martinique",
+                    Photos = new List<Photo>
+                    {
+                        new Photo {Url ="https://randomuser.me/api/portraits/women/51.jpg", IsApproved = true, IsMain = true}
+                    }
                 };
                 await userManager.CreateAsync(admin, "Start12345@");
                 await userManager.AddToRolesAsync(admin, new[] { "Admin", "Moderator" });
