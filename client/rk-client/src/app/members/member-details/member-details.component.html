@@ -24,7 +24,7 @@
           </div>
           <div>
             <strong>Last active:</strong>
-            <p>{{ member.lastActive + 'Z' | timeago }}</p>
+            <p>{{ member.lastActive  | timeago }}</p>
           </div>
           <div>
             <strong>Member Since:</strong>
@@ -63,7 +63,7 @@
           <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery>
         </div>  </mat-tab>
         <mat-tab label="Messages"> <div class="m-3">
-          <app-member-messages [username]="member.userName" [messages]="messages"></app-member-messages>
+          <app-member-messages [username]="member.userName" ></app-member-messages>
         </div> </mat-tab>
       </mat-tab-group>
     </div>

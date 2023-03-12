@@ -68,7 +68,6 @@ export class LoginComponent implements OnInit {
   }
 
   onTabChange(event : MatTabChangeEvent) {
-    console.log(event.tab.textLabel);
     if (event.tab.textLabel === 'Login') {
       this.isRegistrationForm = false;
     }
@@ -78,7 +77,6 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin() {
-    console.log(this.loginForm.value);
     this.accountService.onLogin(this.loginForm.value).subscribe({
       next: (response: any) => {
         console.log(response);
@@ -97,7 +95,6 @@ export class LoginComponent implements OnInit {
     const values = {...this.registrationForm.value, dateOfBirth: dob};
     this.accountService.onRegister(values).subscribe({
       next: (response: any) => {
-        console.log(response);
         this.currentUser$ = this.accountService.currentUser$;
         this.router.navigateByUrl('/');
       },

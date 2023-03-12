@@ -1,11 +1,14 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatTab, MatTabGroup } from '@angular/material/tabs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { NgxGalleryImage } from '@kolkov/ngx-gallery';
 import { NgxGalleryAnimation } from '@kolkov/ngx-gallery';
+import { take } from 'rxjs';
 import { Member } from 'src/app/_models/member';
 import { Messages } from 'src/app/_models/message';
+import { User } from 'src/app/_models/user';
+import { AccountService } from 'src/app/_services/account.service';
 import { MessagesService } from 'src/app/_services/messages.service';
 import { PresenceService } from 'src/app/_services/presence.service';
 
@@ -14,18 +17,31 @@ import { PresenceService } from 'src/app/_services/presence.service';
   templateUrl: './member-details.component.html',
   styleUrls: ['./member-details.component.css'],
 })
-export class MemberDetailsComponent implements OnInit {
+export class MemberDetailsComponent implements OnInit, OnDestroy {
   member: Member = {} as Member;
   galleryOptions: NgxGalleryOptions[] = [];
   galleryImages: NgxGalleryImage[] = [];
   messages: Messages[] = [];
+  user?: User;
 
   @ViewChild('myMessageTab', { static: true }) myMessageTab = {} as MatTabGroup;
   constructor(
     private route: ActivatedRoute,
     private messageService: MessagesService,
-    public presenceService: PresenceService
-  ) {}
+    public presenceService: PresenceService,
+    private accountService: AccountService,
+    private router: Router
+  ) {
+    this.accountService.currentUser$.pipe(take(1)).subscribe({
+      next: (res) => {
+        if (res) {
+          this.user = res;
+        }
+      },
+    });
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+  }
+
   ngOnInit(): void {
     // this.loadMember();
     this.route.data.subscribe({
@@ -53,6 +69,9 @@ export class MemberDetailsComponent implements OnInit {
     ];
     this.galleryImages = this.getImages();
   }
+  ngOnDestroy(): void {
+    this.messageService.stopHubConnection();
+  }
   getImages() {
     if (!this.member) return [];
     const imageUrls = [];
@@ -66,20 +85,11 @@ export class MemberDetailsComponent implements OnInit {
     return imageUrls;
   }
 
-  // loadMember(){
-  //   const username = this.route.snapshot.paramMap.get('userName');
-  //   if(!username) return;
-  //   this.memberService.getMember(username).subscribe({
-  //     next: (res) => {
-  //       this.member = res;
-  //       // this.galleryImages = this.getImages();
-  //     }
-  //   })
-  // }
-
   onTabChange($event: any) {
-    if ($event.tab.textLabel === 'Messages') {
-      this.loadMessagesThreads();
+    if ($event.tab.textLabel === 'Messages' && this.user) {
+      this.loadMessageHub();
+    } else {
+      this.messageService.stopHubConnection();
     }
   }
 
@@ -90,7 +100,7 @@ export class MemberDetailsComponent implements OnInit {
     if (_loadFromParam) {
       if (this.myMessageTab) {
         this.myMessageTab.selectedIndex = 4;
-        this.loadMessagesThreads();
+        this.loadMessageHub();
       }
     } else {
       tabGroup._tabs['_results'].forEach((element: MatTab) => {
@@ -109,6 +119,13 @@ export class MemberDetailsComponent implements OnInit {
           this.messages = res;
         },
       });
+    }
+  }
+  loadMessageHub() {
+    if (this.user) {
+      this.messageService.createHubConnection(this.user, this.member.userName);
+    } else {
+      this.messageService.stopHubConnection();
     }
   }
 }

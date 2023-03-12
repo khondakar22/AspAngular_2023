@@ -46,8 +46,6 @@ userParams: UserParams | undefined;
    }
 
   getMembers(userParams: UserParams) {
-    console.log("🚀 ~ file: members.service.ts:49 ~ MembersService ~ getMembers ~ userParams:", userParams)
-    // console.log(Object.values(userParams).join('-'))
     const response = this.memberCache.get(Object.values(userParams).join('-'));
     if(response) return of(response);
     let params = gePaginationHeader(userParams.pageNumber, userParams.pageSize);
@@ -55,7 +53,6 @@ userParams: UserParams | undefined;
     params = params.append('maxAge', userParams.maxAge);
     params = params.append('gender', userParams.gender);
     params = params.append('orderBy', userParams.orderBy);
-    console.log("🚀 ~ file: members.service.ts:58 ~ MembersService ~ getMembers ~ params:", params)
 
     return getPaginatedResult<Member[]>( this.baseUrl + 'users', params, this.http).pipe(
       map(response => {
@@ -66,9 +63,6 @@ userParams: UserParams | undefined;
   }
 
   getMember(username: string) {
-    // const member = this.members.find(x => x.userName === username);
-    // if(member) return of(member);
-
     const member = [...this.memberCache.values()].reduce((arr, elem)=> arr.concat(elem.result), []).find((member: Member) => member.userName === username);
     if(member) return of(member);
     return this.http.get<Member>(this.baseUrl + 'users/' + username);
@@ -97,9 +91,8 @@ userParams: UserParams | undefined;
   getLikes(predicate: string, pageNumber: number, pageSize: number ){
     let params = gePaginationHeader(pageNumber, pageSize);
     params = params.append('predicate', predicate);
-
     return getPaginatedResult<Member[]>( this.baseUrl + 'likes', params, this.http);
-    // return this.http.get<Member[]>(this.baseUrl + 'likes?predicate=' + predicate );
+
   }
 
 

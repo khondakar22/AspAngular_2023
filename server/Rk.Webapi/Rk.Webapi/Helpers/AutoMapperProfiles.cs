@@ -21,6 +21,9 @@ namespace Rk.Webapi.Helpers
                     op => op.MapFrom(s => s.Sender.Photos.FirstOrDefault(x => x.IsMain).Url))
                 .ForMember(dest => dest.RecipientPhotoUrl,
                     op => op.MapFrom(s => s.Recipient.Photos.FirstOrDefault(x => x.IsMain).Url)); ;
+            CreateMap<DateTime, DateTime>().ConvertUsing(d => DateTime.SpecifyKind(d, DateTimeKind.Utc));
+            CreateMap<DateTime?, DateTime?>().ConvertUsing(d => d.HasValue ? DateTime.SpecifyKind(d.Value, DateTimeKind.Utc) : null);
+
         }
     }
 }

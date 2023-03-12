@@ -73,10 +73,10 @@
       <mat-card-actions class="mat__card__action">
         <a routerLink="/home" mat-button>Cancel</a>
         <button *ngIf="!isRegistrationForm"   [disabled]="!loginForm.valid"  (click)="myLoginForm.ngSubmit.emit()" type="submit" mat-button>
-          Save
+          Login
         </button>
         <button *ngIf="isRegistrationForm" [disabled]="!registrationForm.valid" (click)="myRegistrationForm.ngSubmit.emit()" type="submit" mat-button>
-            Save
+            Register
           </button>
       </mat-card-actions>
 
