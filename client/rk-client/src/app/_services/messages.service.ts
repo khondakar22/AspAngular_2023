@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { BehaviorSubject, take } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
+import { Group } from '../_models/group';
 import { Messages } from '../_models/message';
 import { User } from '../_models/user';
 import {
@@ -31,6 +32,20 @@ export class MessagesService {
     this.hubConnection?.start().catch(error => console.log(error));
     this.hubConnection.on('ReceiveMessageThread', messages=>{
       this.messageThreadSource.next(messages)
+    });
+    this.hubConnection.on('UpdatedGroup', (group: Group)=>{
+      if(group.connections.some(x => x.username === otherUsername)){
+        this.messageThread$.pipe(take(1)).subscribe({
+          next: messages => {
+            messages.forEach(message => {
+              if(!message.dateRead) {
+                message.dateRead = new Date(Date.now())
+              }
+            })
+            this.messageThreadSource.next([...messages]);
+          }
+        })
+      }
     });
     this.hubConnection.on('NewMessage', message=>{
      this.messageThread$.pipe(take(1)).subscribe({
