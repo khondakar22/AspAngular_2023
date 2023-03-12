@@ -43,8 +43,10 @@
     </mat-icon>
   </a>
   <a (click)="addFriendRequest()">
-    <mat-icon>
-              person_add
+    <mat-icon [class.is-online]="(presenceService.onlineUsers$ | async)?.includes(member.userName)">
+      <span class="blinka" >
+        accessibility_new
+        </span>
     </mat-icon>
   </a>
   </mat-card-actions>

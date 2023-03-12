@@ -6,8 +6,8 @@ import { NgxGalleryImage } from '@kolkov/ngx-gallery';
 import { NgxGalleryAnimation } from '@kolkov/ngx-gallery';
 import { Member } from 'src/app/_models/member';
 import { Messages } from 'src/app/_models/message';
-import { MembersService } from 'src/app/_services/members.service';
 import { MessagesService } from 'src/app/_services/messages.service';
+import { PresenceService } from 'src/app/_services/presence.service';
 
 @Component({
   selector: 'app-member-details',
@@ -22,9 +22,9 @@ export class MemberDetailsComponent implements OnInit {
 
   @ViewChild('myMessageTab', { static: true }) myMessageTab = {} as MatTabGroup;
   constructor(
-    private memberService: MembersService,
     private route: ActivatedRoute,
-    private messageService: MessagesService
+    private messageService: MessagesService,
+    public presenceService: PresenceService
   ) {}
   ngOnInit(): void {
     // this.loadMember();

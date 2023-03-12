@@ -58,4 +58,12 @@
 .example-card-action > a > :hover {
   color: rgb(255, 0, 0);
 }
+@keyframes blinka {
+  0% {opacity: 1;}
+  100% {opacity: 0.4;}
+}
+.is-online {
+  animation: blinka 1.5s linear infinite;
+  color: aqua !important;
+}
 
