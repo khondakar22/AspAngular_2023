@@ -3,6 +3,7 @@ using Rk.Webapi.Data;
 using Rk.Webapi.Helpers;
 using Rk.Webapi.Interfaces;
 using Rk.Webapi.Services;
+using Rk.Webapi.SignalR;
 
 namespace Rk.Webapi.Extensions
 {
@@ -27,6 +28,7 @@ namespace Rk.Webapi.Extensions
             service.AddScoped<ILikesRepository, LikesRepository>();
             service.AddScoped<LogUserActivity>();
             service.AddSignalR();
+            service.AddSingleton<PresenceTracker>();
             return service;
         }
     }
