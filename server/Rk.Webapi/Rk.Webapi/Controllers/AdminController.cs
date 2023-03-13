@@ -52,7 +52,7 @@ namespace Rk.Webapi.Controllers
         }
 
         [Authorize(Policy = "ModeratePhotoRole")]
-        [HttpGet("photos-to-moderate/{photoParams}")]
+        [HttpGet("photos-to-moderate")]
         public async Task<ActionResult<PhotoForApprovalDto>> GetPhotosForModeration([FromQuery] PhotoParams photoParams)
         {
             var photos = await _uow.PhotoRepository.GetUnapprovedPhotos(photoParams.PageNumber, photoParams.PageSize);
@@ -74,8 +74,8 @@ namespace Rk.Webapi.Controllers
 
 
         [Authorize(Policy = "ModeratePhotoRole")]
-        [HttpPost("photos-to-reject/{id}")]
-        public async Task<ActionResult<PhotoDto>> RejectPhoto(int id)
+        [HttpPut("photos-to-reject")]
+        public async Task<ActionResult<PhotoDto>> RejectPhoto([FromQuery] int id)
         {
             var result = await _uow.PhotoRepository.RejectPhoto(id);
             if (await _uow.Complete()) return Ok(result);
