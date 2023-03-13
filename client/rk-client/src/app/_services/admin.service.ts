@@ -19,4 +19,7 @@ export class AdminService {
       {}
     );
   }
+  getPhotosForApproval(){}
+  approvePhoto(){}
+  rejectPhoto(){}
 }

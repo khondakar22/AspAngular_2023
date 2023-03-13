@@ -1,9 +1,12 @@
 <div class="row mb-3" *ngIf="member">
-  <div class="col-2 mb-1" *ngFor="let photo of member.photos">
-    <img src="{{ photo.url }}" alt="photo of user" class="img-thumbnail mb-1" />
+  <div class="col-2 mb-1 img-wrapper" *ngFor="let photo of member.photos">
+    <img src="{{ photo.url }}" alt="{{ photo.url }}" class="img-thumbnail mb-1 p-1" [class.not-approved]="!photo.isApproved" />
+    <div class="text-center img-text" *ngIf="!photo.isApproved">
+      <span class="text-danger">Awaiting approval</span>
+      </div>
     <div class="example-button text-center">
       <button
-        [disabled]="photo.isMain"
+        [disabled]="photo.isMain  || !photo.isApproved"
         (click)="setMainPhoto(photo)"
         mat-raised-button
         color="primary"
