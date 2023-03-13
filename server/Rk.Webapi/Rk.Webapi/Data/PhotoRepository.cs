@@ -27,10 +27,10 @@ namespace Rk.Webapi.Data
 
         }
 
-        public async Task<PhotoDto> ApprovePhotoById(int photoId, int userId)
+        public async Task<PhotoDto> ApprovePhotoById(PhotoParams photoParams)
         {
-            var photos = await _context.Photos.Where(x => x.AppUserId == userId).ToListAsync();
-            var photo = photos.FirstOrDefault(x => x.Id == photoId);
+            var photos = await _context.Photos.Where(x => x.AppUserId == photoParams.UserId).ToListAsync();
+            var photo = photos.FirstOrDefault(x => x.Id == photoParams.PhotoId);
             if(photo == null) return null;
             if (!photos.Any(x => x.IsMain))
             {

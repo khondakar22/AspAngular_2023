@@ -62,10 +62,10 @@ namespace Rk.Webapi.Controllers
         }
 
         [Authorize(Policy = "ModeratePhotoRole")]
-        [HttpPost("photos-to-approve/{userId}")]
-        public async Task<ActionResult<PhotoDto>> ApprovePhoto(int userId, [FromQuery] int photoId)
+        [HttpPost("photos-to-approve")]
+        public async Task<ActionResult<PhotoDto>> ApprovePhoto( [FromBody] PhotoParams photoParams)
         {
-            var result = await _uow.PhotoRepository.ApprovePhotoById(photoId, userId);
+            var result = await _uow.PhotoRepository.ApprovePhotoById(photoParams);
            
             if (await _uow.Complete()) return Ok(result);
 
@@ -74,10 +74,10 @@ namespace Rk.Webapi.Controllers
 
 
         [Authorize(Policy = "ModeratePhotoRole")]
-        [HttpPost("photos-to-reject/{Id}")]
-        public async Task<ActionResult<PhotoDto>> RejectPhoto(int Id)
+        [HttpPost("photos-to-reject/{id}")]
+        public async Task<ActionResult<PhotoDto>> RejectPhoto(int id)
         {
-            var result = await _uow.PhotoRepository.RejectPhoto(Id);
+            var result = await _uow.PhotoRepository.RejectPhoto(id);
             if (await _uow.Complete()) return Ok(result);
 
             return BadRequest("Problem Rejecting the photo");

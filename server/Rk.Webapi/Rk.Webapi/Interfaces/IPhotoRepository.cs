@@ -7,7 +7,7 @@ namespace Rk.Webapi.Interfaces
     public interface IPhotoRepository
     {
         Task<PagedList<PhotoForApprovalDto>> GetUnapprovedPhotos(int pageNumber, int pageSize);
-        Task<PhotoDto> ApprovePhotoById(int photoId, int userId);
+        Task<PhotoDto> ApprovePhotoById(PhotoParams photoParams);
         Task<Photo> GetPhotoById(int photoId);
         Task<PhotoDto> RejectPhoto(int photoId);
     }
